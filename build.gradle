@@ -29,6 +29,10 @@ dependencies {
 	runtimeOnly 'org.postgresql:postgresql'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// Datenbank-Treiber als Dependency zu build.gradle hinzufügen
+	runtimeOnly 'com.h2database:h2-mvstore:2.1.214'
+
 }
 
 tasks.named('test') {
