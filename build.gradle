@@ -33,7 +33,7 @@ dependencies {
 	// Datenbank-Treiber als Dependency zu build.gradle hinzufügen
 	// runtimeOnly 'com.h2database:h2-mvstore:2.1.214'
 
-	// Aktualisierter Datenbank-Treiber
+	// Datenbank-Treiber aktualisiert
 	runtimeOnly 'com.h2database:h2:2.2.224'
 
 }
