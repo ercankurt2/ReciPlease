@@ -22,7 +22,7 @@ repositories {
 }
 
 dependencies {
-	// implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -31,7 +31,10 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
 	// Datenbank-Treiber als Dependency zu build.gradle hinzufügen
-	runtimeOnly 'com.h2database:h2-mvstore:2.1.214'
+	// runtimeOnly 'com.h2database:h2-mvstore:2.1.214'
+
+	// Aktualisierter Datenbank-Treiber
+	runtimeOnly 'com.h2database:h2:2.2.224'
 
 }
 
