@@ -10,6 +10,6 @@ import java.util.List;
 // @Repository-Annotation kennzeichnet dieses Interface als Spring Data JPA-Repository
 @Repository
 public interface RezeptRepository extends JpaRepository<Rezept, Integer> {
-    // Benutzerdefinierte Abfrage, um Rezepte nach Namen als String zu durchsuchen
-    List<Rezept> findRezepteByNameContaining(String name);
+    // Benutzerdefinierte Abfrage, um Rezepte nach Titeln als String zu durchsuchen
+    List<Rezept> findRezepteByTitelContaining(String titel);
 }

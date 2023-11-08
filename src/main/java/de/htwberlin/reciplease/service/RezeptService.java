@@ -28,8 +28,8 @@ public class RezeptService {
     }
 
     // Methode zur Suche von Rezepten anhand des Namens
-    public List<Rezept> searchByName(String name) {
-        // Ruft eine benutzerdefinierte Suche nach Rezepten anhand des Namens ab
-        return rezeptRepository.findRezepteByNameContaining(name);
+    public List<Rezept> searchByName(String titel) {
+        // Ruft eine benutzerdefinierte Suche nach Rezepten anhand des Titels ab
+        return rezeptRepository.findRezepteByTitelContaining(titel);
     }
 }
