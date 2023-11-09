@@ -30,6 +30,11 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 
+	// Mockito als Framework für das Mocken von Objekten in Tests
+	testImplementation "org.mockito:mockito-core:3.+"
+	// Assertj als Bibliothek für die bessere Lesbarkeit bei der Erstellung von Test-Assertions
+	testImplementation("org.assertj:assertj-core:3.24.2")
+
 	// Datenbank-Treiber als Dependency zu build.gradle hinzufügen
 	// runtimeOnly 'com.h2database:h2-mvstore:2.1.214'
 
