@@ -45,6 +45,6 @@ class RezeptServiceTest {
         Rezept captorValue = rezeptArgumentCaptor.getValue();
 
         // Überprüft, ob das erfasste Rezept eine RezeptID hat
-        // assertThat(captorValue.getRezeptID()).isNotNull();
+        assertThat(captorValue.getRezeptID()).isNotNull();
     }
 }
