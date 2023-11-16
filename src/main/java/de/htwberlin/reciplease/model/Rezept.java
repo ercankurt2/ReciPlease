@@ -9,6 +9,7 @@ import java.util.List;
 @Entity
 public class Rezept {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer rezeptID;
     String titel;
     String beschreibung;

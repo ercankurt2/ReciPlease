@@ -26,7 +26,7 @@ class RezeptServiceTest {
 
     @Test
     void shouldCreateRezept() {
-        // Erstellt ein Beispiel-Rezeptobjekt
+        // Erstellt ein Beispiel-Rezept-Objekt
         Rezept rezept = new Rezept();
         rezept.setTitel("Tomatensuppe");
 
@@ -37,7 +37,7 @@ class RezeptServiceTest {
         assertThat(createdRezept.getTitel()).isEqualTo(rezept.getTitel());
 
         // Überprüft, ob das erstellte Rezept eine RezeptID hat
-        // assertThat(createdRezept.getRezeptID()).isNotNull();
+        assertThat(createdRezept.getRezeptID()).isNotNull();
 
         // Mithilfe von ArgumentCaptor die übergebene Entität beim Aufruf von rezeptRepository.save(...) erfassen
         ArgumentCaptor<Rezept> rezeptArgumentCaptor = ArgumentCaptor.forClass(Rezept.class);

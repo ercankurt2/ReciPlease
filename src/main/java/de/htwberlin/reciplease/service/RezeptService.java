@@ -16,10 +16,24 @@ public class RezeptService {
     // Injektion des RezeptRepository, um auf Datenbankoperationen zuzugreifen
     private final RezeptRepository rezeptRepository;
 
+    // Methode zur Generierung einer eindeutigen RezeptID
+    public Integer generateRezeptID() {
+        // Ruft die Methode count() des RezeptRepository auf, um die Anzahl der Rezepte in der Datenbank zu erhalten
+        Integer count = Math.toIntExact(rezeptRepository.count());
+        // Erhöht die Anzahl der Rezepte um 1, um eine eindeutige RezeptID zu generieren
+        return count + 1;
+    }
+
     // Methode zur Erstellung eines neuen Rezepts in der Datenbank
     public Rezept createRezept(Rezept rezept) {
-        rezeptRepository.save(rezept); // Speichert das übergebene Rezept
-        return rezept; // Gibt das erstellte Rezept zurück
+        // Setzen der eindeutigen RezeptID
+        rezept.setRezeptID(generateRezeptID());
+
+        // Speichert das übergebene Rezept
+        rezeptRepository.save(rezept);
+
+        // Gibt das erstellte Rezept zurück
+        return rezept;
     }
 
     // Methode zur Abfrage aller Rezepte in der Datenbank
