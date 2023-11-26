@@ -1,8 +1,8 @@
 spring:
   datasource:
-    username: postgres
-    password: mysecretpassword
-    url: jdbc:postgresql://localhost:5432/postgres
+    username: uvpnyymnosszmb
+    password: c6a897909475f5376efb23bda9e8cccbec5abc3d611b784bc79f734e9eac895b
+    url: postgres://uvpnyymnosszmb:c6a897909475f5376efb23bda9e8cccbec5abc3d611b784bc79f734e9eac895b@ec2-54-78-142-10.eu-west-1.compute.amazonaws.com:5432/d788fc0edfp28a
     driver-class-name: org.postgresql.Driver
     hikari:
       maximum-pool-size: 5
