@@ -1,5 +1,6 @@
 package de.htwberlin.reciplease.service;
 
+import de.htwberlin.reciplease.repository.KategorieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Service;
 public class KategorieService {
 
     // Injektion des KategorieRepository, um auf Datenbankoperationen zuzugreifen
-    private final KategorieService kategorieService;
+    private final KategorieRepository kategorieRepository;
 
 }

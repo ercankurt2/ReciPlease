@@ -1,5 +1,6 @@
 package de.htwberlin.reciplease.service;
 
+import de.htwberlin.reciplease.repository.ErnaehrungsinformationenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Service;
 public class ErnaehrungsinformationenService {
 
     // Injektion des ErnaehrungsinformationenRepository, um auf Datenbankoperationen zuzugreifen
-    private final ErnaehrungsinformationenService ernaehrungsinformationenService;
+    private final ErnaehrungsinformationenRepository ernaehrungsinformationenRepository;
 
 }

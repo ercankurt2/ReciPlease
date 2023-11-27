@@ -1,5 +1,6 @@
 package de.htwberlin.reciplease.service;
 
+import de.htwberlin.reciplease.repository.ZutatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Service;
 public class ZutatService {
 
     // Injektion des ZutatRepository, um auf Datenbankoperationen zuzugreifen
-    private final ZutatService zutatService;
+    private final ZutatRepository zutatRepository;
 
 }

@@ -1,6 +1,6 @@
 package de.htwberlin.reciplease.service;
 
-import de.htwberlin.reciplease.repository.RezeptRepository;
+import de.htwberlin.reciplease.repository.BenutzerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,6 +11,13 @@ import org.springframework.stereotype.Service;
 public class BenutzerService {
 
     // Injektion des BenutzerRepository, um auf Datenbankoperationen zuzugreifen
-    private final BenutzerService benutzerService;
+    private final BenutzerRepository benutzerRepository;
 
+    // Methode zur Generierung einer eindeutigen BenutzerID
+    public Integer generateBenutzerID() {
+        // Ruft die Methode count() des BenutzerRepository auf, um die Anzahl der Benutzer in der Datenbank zu erhalten
+        Integer count = Math.toIntExact(benutzerRepository.count());
+        // Erhöht die Anzahl der Benutzer um 1, um eine eindeutige BenutzerID zu generieren
+        return count + 1;
+    }
 }

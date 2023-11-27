@@ -1,5 +1,6 @@
 package de.htwberlin.reciplease.service;
 
+import de.htwberlin.reciplease.repository.FavoritenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,6 @@ import org.springframework.stereotype.Service;
 public class FavoritenService {
 
     // Injektion des FavoritenRepository, um auf Datenbankoperationen zuzugreifen
-    private final FavoritenService favoritenService;
+    private final FavoritenRepository favoritenRepository;
 
 }
