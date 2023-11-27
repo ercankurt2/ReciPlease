@@ -15,7 +15,7 @@ public class BenutzerController {
     // Injektion des BenutzerService
     private final BenutzerService benutzerService;
 
-    @PostMapping // HTTP-POST, um ein neues Rezept zu erstellen
+    @PostMapping // HTTP-POST, um einen neuen Benutzer zu erstellen
     public Benutzer createBenutzer(@RequestBody Benutzer benutzer) {
         // Ruft die Methode createBenutzer des BenutzerService auf und gibt den erstellten Benutzer zurück
         return benutzerService.createBenutzer(benutzer);
