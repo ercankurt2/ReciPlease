@@ -44,6 +44,6 @@ public class ZutatService {
     // Methode zur Suche einer Zutat anhand des Namens
     public List<Zutat> searchByName(String zutatname) {
         // Ruft eine benutzerdefinierte Suche nach Zutaten anhand des Zutatnamens ab
-        return zutatRepository.findZutatByZutatnameContaining(zutatname);
+        return zutatRepository.findZutatByNameContaining(zutatname);
     }
 }

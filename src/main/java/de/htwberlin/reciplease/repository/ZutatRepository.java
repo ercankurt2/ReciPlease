@@ -11,5 +11,5 @@ import java.util.List;
 @Repository
 public interface ZutatRepository extends JpaRepository<Zutat, Integer> {
     // Benutzerdefinierte Abfrage, um Zutaten nach Zutatnamen als String zu durchsuchen
-    List<Zutat> findZutatByZutatnameContaining(String zutatname);
+    List<Zutat> findZutatByNameContaining(String zutatname);
 }
