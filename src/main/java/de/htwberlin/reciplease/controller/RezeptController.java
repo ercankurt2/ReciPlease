@@ -21,8 +21,7 @@ public class RezeptController {
         return rezeptService.createRezept(rezept);
     }
 
-    // HTTP-GET, um eine Liste von Rezepten abzurufen
-    @GetMapping
+    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
     public List<Rezept> findAll(@RequestParam(required = false) String name) {
         // Wenn der Parameter 'name' in der Anfrage vorhanden ist, wird
         // die Methode searchByName aufgerufen, um Rezepte nach Namen zu durchsuchen
