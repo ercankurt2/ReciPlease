@@ -3,6 +3,7 @@ package de.htwberlin.reciplease.controller;
 import de.htwberlin.reciplease.model.Ernaehrungsinformationen;
 import de.htwberlin.reciplease.service.ErnaehrungsinformationenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,9 +23,9 @@ public class ErnaehrungsinformationenController {
     }
 
     @GetMapping // HTTP-GET, um eine Liste von Ernährungsinformationen abzurufen
-    public List<Ernaehrungsinformationen> findAll(@RequestParam(required = false) Integer id) {
+    public ResponseEntity<List<Ernaehrungsinformationen>> fetchErnaehrungsinformationen() {
         // Es wird die Methode getAllErnaehrungsinformationen aufgerufen, um alle Ernährungsinformationen abzurufen
-        return ernaehrungsinformationenService.getAllErnaehrungsinformationen();
+        return ResponseEntity.ok(ernaehrungsinformationenService.getAllErnaehrungsinformationen());
     }
 
 }
