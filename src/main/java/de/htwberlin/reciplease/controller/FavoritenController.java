@@ -3,6 +3,7 @@ package de.htwberlin.reciplease.controller;
 import de.htwberlin.reciplease.model.Favoriten;
 import de.htwberlin.reciplease.service.FavoritenService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,9 +22,8 @@ public class FavoritenController {
         return favoritenService.createFavoriten(favoriten);
     }
 
-    @GetMapping // HTTP-GET, um eine Liste von Favoriten abzurufen
-    public List<Favoriten> findAll(@RequestParam(required = false) Integer id) {
-        // Es wird die Methode getAllFavoriten aufgerufen, um alle Favoriten abzurufen
-        return favoritenService.getAllFavoriten();
+    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
+    public ResponseEntity<List<Favoriten>> fetchFavoriten() {
+        return ResponseEntity.ok(favoritenService.getAllFavoriten());
     }
 }
