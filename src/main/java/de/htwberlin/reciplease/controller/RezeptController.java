@@ -3,6 +3,7 @@ package de.htwberlin.reciplease.controller;
 import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.service.RezeptService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +22,9 @@ public class RezeptController {
         return rezeptService.createRezept(rezept);
     }
 
-    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
-    public List<Rezept> findAll(@RequestParam(required = false) String name) {
-        // Wenn der Parameter 'name' in der Anfrage vorhanden ist, wird
-        // die Methode searchByName aufgerufen, um Rezepte nach Namen zu durchsuchen
-        if (name != null) {
-            return rezeptService.searchByName(name);
-        }
-        // Andernfalls wird die Methode getAllRezepte aufgerufen, um alle Rezepte abzurufen
-        return rezeptService.getAllRezepte();
+    // HTTP-GET, um eine Liste von Rezepten abzurufen
+    @GetMapping
+    public ResponseEntity<List<Rezept>> fetchRezepte() {
+        return ResponseEntity.ok(rezeptService.getAllRezepte());
     }
 }

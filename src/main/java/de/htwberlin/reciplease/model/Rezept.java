@@ -33,7 +33,7 @@ public class Rezept {
 
     // Many-to-Many-Beziehung zur Entity-Klasse "Zutat"
     // Zum Hinzufügen von Zutaten-Listen zu Rezepten, Rezepte können also mehrere Zutaten umfassen
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "rezept_zutat", // Name der Join-Tabelle
         joinColumns = @JoinColumn(name = "rezeptID"),
