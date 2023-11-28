@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 public class Rezept {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Primärschlüssel wird automatisch generiert
     Integer rezeptID;
     String titel;
     String beschreibung;

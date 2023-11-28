@@ -1,6 +1,8 @@
 package de.htwberlin.reciplease.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
@@ -8,6 +10,7 @@ import lombok.Data;
 @Entity
 public class Ernaehrungsinformationen {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Primärschlüssel wird automatisch generiert
     Integer ernaehrungsinformationenID;
     Integer kalorien;
     Integer protein;
