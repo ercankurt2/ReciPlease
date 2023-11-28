@@ -3,6 +3,7 @@ package de.htwberlin.reciplease.controller;
 import de.htwberlin.reciplease.model.Zutat;
 import de.htwberlin.reciplease.service.ZutatService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +23,7 @@ public class ZutatController {
     }
 
     @GetMapping // HTTP-GET, um eine Liste von Zutaten abzurufen
-    public List<Zutat> findAll(@RequestParam(required = false) String name) {
-        // Wenn der Parameter 'name' in der Anfrage vorhanden ist, wird
-        // die Methode searchByName aufgerufen, um Zutaten nach Namen zu durchsuchen
-        if (name != null) {
-            return zutatService.searchByName(name);
-        }
-        // Andernfalls wird die Methode getAllZutat aufgerufen, um alle Zutaten abzurufen
-        return zutatService.getAllZutat();
+    public ResponseEntity<List<Zutat>> fetchZutaten() {
+        return ResponseEntity.ok(zutatService.getAllZutat());
     }
 }
