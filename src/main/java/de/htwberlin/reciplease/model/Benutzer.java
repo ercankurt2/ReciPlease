@@ -17,7 +17,7 @@ public class Benutzer {
     String passwort;
 
     // One-to-Many-Beziehung, wobei ein Benutzer mehrere Rezepte haben kann
-    @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "benutzer", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Rezept> rezepte = new ArrayList<>();
 
 }

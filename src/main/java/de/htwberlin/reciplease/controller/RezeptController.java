@@ -22,8 +22,7 @@ public class RezeptController {
         return rezeptService.createRezept(rezept);
     }
 
-    // HTTP-GET, um eine Liste von Rezepten abzurufen
-    @GetMapping
+    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
     public ResponseEntity<List<Rezept>> fetchRezepte() {
         return ResponseEntity.ok(rezeptService.getAllRezepte());
     }

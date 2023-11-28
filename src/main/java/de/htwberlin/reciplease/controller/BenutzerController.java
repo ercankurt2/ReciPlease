@@ -3,6 +3,7 @@ package de.htwberlin.reciplease.controller;
 import de.htwberlin.reciplease.model.Benutzer;
 import de.htwberlin.reciplease.service.BenutzerService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,14 +22,8 @@ public class BenutzerController {
         return benutzerService.createBenutzer(benutzer);
     }
 
-    @GetMapping // HTTP-GET, um eine Liste von Benutzern abzurufen
-    public List<Benutzer> findAll(@RequestParam(required = false) String name) {
-        // Wenn der Parameter 'name' in der Anfrage vorhanden ist, wird
-        // die Methode searchByName aufgerufen, um Benutzer nach Namen zu durchsuchen
-        if (name != null) {
-            return benutzerService.searchByName(name);
-        }
-        // Andernfalls wird die Methode getAllBenutzer aufgerufen, um alle Benutzer abzurufen
-        return benutzerService.getAllBenutzer();
+    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
+    public ResponseEntity<List<Benutzer>> fetchBenutzer() {
+        return ResponseEntity.ok(benutzerService.getAllBenutzer());
     }
 }
