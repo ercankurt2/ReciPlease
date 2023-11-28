@@ -22,7 +22,7 @@ public class FavoritenController {
         return favoritenService.createFavoriten(favoriten);
     }
 
-    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
+    @GetMapping // HTTP-GET, um eine Liste von Favoriten abzurufen
     public ResponseEntity<List<Favoriten>> fetchFavoriten() {
         return ResponseEntity.ok(favoritenService.getAllFavoriten());
     }

@@ -22,7 +22,7 @@ public class BenutzerController {
         return benutzerService.createBenutzer(benutzer);
     }
 
-    @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
+    @GetMapping // HTTP-GET, um eine Liste von Benutzern abzurufen
     public ResponseEntity<List<Benutzer>> fetchBenutzer() {
         return ResponseEntity.ok(benutzerService.getAllBenutzer());
     }

@@ -3,6 +3,7 @@ package de.htwberlin.reciplease.controller;
 import de.htwberlin.reciplease.model.Kategorie;
 import de.htwberlin.reciplease.service.KategorieService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,13 +23,7 @@ public class KategorieController {
     }
 
     @GetMapping // HTTP-GET, um eine Liste von Kategorien abzurufen
-    public List<Kategorie> findAll(@RequestParam(required = false) String name) {
-        // Wenn der Parameter 'name' in der Anfrage vorhanden ist, wird
-        // die Methode searchByName aufgerufen, um Kategorien nach Namen zu durchsuchen
-        if (name != null) {
-            return kategorieService.searchByName(name);
-        }
-        // Andernfalls wird die Methode getAllKategorie aufgerufen, um alle Kategorien abzurufen
-        return kategorieService.getAllKategorie();
+    public ResponseEntity<List<Kategorie>> fetchKategorien() {
+        return ResponseEntity.ok(kategorieService.getAllKategorie());
     }
 }
