@@ -10,7 +10,9 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 // Ermöglicht die Verwendung von Mockito-Annotationen in den Tests
 @ExtendWith(MockitoExtension.class)
@@ -29,6 +31,13 @@ class RezeptServiceTest {
         // Erstellt ein Beispiel-Rezept-Objekt
         Rezept rezept = new Rezept();
         rezept.setTitel("Tomatensuppe");
+
+        // Konfigurieren des Mock-Objekts, um ein Rezept mit einer ID zurückzugeben
+        when(rezeptRepository.save(any(Rezept.class))).thenAnswer(invocation -> {
+            Rezept savedRezept = invocation.getArgument(0, Rezept.class); // Beachten Sie den Typ
+            savedRezept.setRezeptID(1); // Setzen einer Dummy-ID
+            return savedRezept;
+        });
 
         // Ruft die Methode createRezept im RezeptService auf und speichert das erstellte Rezept
         Rezept createdRezept = this.rezeptService.createRezept(rezept);
