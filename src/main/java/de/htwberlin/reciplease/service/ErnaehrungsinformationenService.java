@@ -26,8 +26,9 @@ public class ErnaehrungsinformationenService {
 
     // Methode zur Erstellung einer neuen Ernährungsinformation in der Datenbank
     public Ernaehrungsinformationen createErnaehrungsinformationen(Ernaehrungsinformationen ernaehrungsinformationen) {
+        // Keine Notwendigkeit, die ID manuell zu generieren, da sie automatisch generiert wird
         // Setzen der eindeutigen ErnaehrungsinformationenID
-        ernaehrungsinformationen.setErnaehrungsinformationenID(generateErnaehrungsinformationenID());
+        // ernaehrungsinformationen.setErnaehrungsinformationenID(generateErnaehrungsinformationenID());
 
         // Speichert die übergebene Ernährungsinformation
         ernaehrungsinformationenRepository.save(ernaehrungsinformationen);

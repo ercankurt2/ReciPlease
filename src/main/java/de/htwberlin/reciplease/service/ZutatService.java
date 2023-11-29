@@ -26,8 +26,9 @@ public class ZutatService {
 
     // Methode zur Erstellung einer neuen Zutat in der Datenbank
     public Zutat createZutat(Zutat zutat) {
+        // Keine Notwendigkeit, die ID manuell zu generieren, da sie automatisch generiert wird
         // Setzen der eindeutigen ZutatID
-        zutat.setZutatID(generateZutatID());
+        // zutat.setZutatID(generateZutatID());
 
         // Speichert die übergebene Zutat
         zutatRepository.save(zutat);

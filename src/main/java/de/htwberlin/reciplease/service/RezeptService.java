@@ -26,8 +26,9 @@ public class RezeptService {
 
     // Methode zur Erstellung eines neuen Rezepts in der Datenbank
     public Rezept createRezept(Rezept rezept) {
+        // Keine Notwendigkeit, die ID manuell zu generieren, da sie automatisch generiert wird
         // Setzen der eindeutigen RezeptID
-        rezept.setRezeptID(generateRezeptID());
+        // rezept.setRezeptID(generateRezeptID());
 
         // Speichert das übergebene Rezept
         rezeptRepository.save(rezept);

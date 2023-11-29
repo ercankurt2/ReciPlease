@@ -26,8 +26,9 @@ public class KategorieService {
 
     // Methode zur Erstellung einer neuen Kategorie in der Datenbank
     public Kategorie createKategorie(Kategorie kategorie) {
+        // Keine Notwendigkeit, die ID manuell zu generieren, da sie automatisch generiert wird
         // Setzen der eindeutigen KategorieID
-        kategorie.setKategorieID(generateKategorieID());
+        // kategorie.setKategorieID(generateKategorieID());
 
         // Speichert die übergebene Kategorie
         kategorieRepository.save(kategorie);

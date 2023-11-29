@@ -26,8 +26,9 @@ public class FavoritenService {
 
     // Methode zur Erstellung eines neuen Favoriten in der Datenbank
     public Favoriten createFavoriten(Favoriten favoriten) {
+        // Keine Notwendigkeit, die ID manuell zu generieren, da sie automatisch generiert wird
         // Setzen der eindeutigen FavoritenID
-        favoriten.setFavoritenID(generateFavoritenID());
+        // favoriten.setFavoritenID(generateFavoritenID());
 
         // Speichert den übergebenen Favoriten
         favoritenRepository.save(favoriten);

@@ -26,8 +26,9 @@ public class BenutzerService {
 
     // Methode zur Erstellung eines neuen Benutzers in der Datenbank
     public Benutzer createBenutzer(Benutzer benutzer) {
+        // Keine Notwendigkeit, die ID manuell zu generieren, da sie automatisch generiert wird
         // Setzen der eindeutigen BenutzerID
-        benutzer.setBenutzerID(generateBenutzerID());
+        // benutzer.setBenutzerID(generateBenutzerID());
 
         // Speichert den übergebenen Benutzer
         benutzerRepository.save(benutzer);
