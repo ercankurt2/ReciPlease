@@ -26,4 +26,15 @@ public class RezeptController {
     public ResponseEntity<List<Rezept>> fetchRezepte() {
         return ResponseEntity.ok(rezeptService.getAllRezepte());
     }
+
+    // HTTP-GET, um ein Rezept anhand seiner ID zu erhalten
+    @GetMapping("/{id}") // Der Pfad enthält eine Variable für die ID
+    public ResponseEntity<Rezept> getRezeptById(@PathVariable Integer id) {
+        Rezept rezept = rezeptService.getRezeptById(id);
+        if (rezept != null) {
+            return ResponseEntity.ok(rezept);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

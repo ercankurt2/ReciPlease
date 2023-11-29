@@ -47,4 +47,10 @@ public class RezeptService {
         // Ruft eine benutzerdefinierte Suche nach Rezepten anhand des Titels ab
         return rezeptRepository.findRezepteByTitelContaining(titel);
     }
+
+    // Methode, um ein Rezept anhand seiner ID zu erhalten
+    public Rezept getRezeptById(Integer id) {
+        // Verwendung von findById, um ein Rezept zu finden oder null zurückzugeben
+        return rezeptRepository.findById(id).orElse(null);
+    }
 }
