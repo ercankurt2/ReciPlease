@@ -37,4 +37,14 @@ public class RezeptController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @PutMapping("/{id}") // HTTP-PUT, um ein Rezept zu aktualisieren
+    public ResponseEntity<Rezept> updateRezept(@PathVariable Integer id, @RequestBody Rezept rezept) {
+        Rezept updatedRezept = rezeptService.updateRezept(id, rezept);
+        if (updatedRezept != null) {
+            return ResponseEntity.ok(updatedRezept);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }

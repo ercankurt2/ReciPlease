@@ -37,6 +37,37 @@ public class RezeptService {
         return rezept;
     }
 
+    // Methode zur Aktualisierung eines Rezepts in der Datenbank
+    public Rezept updateRezept(Integer id, Rezept rezeptDetails) {
+        // Ruft das Rezept anhand seiner ID aus der Datenbank ab
+        Rezept rezeptToUpdate = rezeptRepository.findById(id).orElse(null);
+
+        if (rezeptToUpdate != null) {
+            // Aktualisieren der Daten des Rezepts mit den Details aus dem übergebenen Rezept-Objekt
+            rezeptToUpdate.setTitel(rezeptDetails.getTitel());
+            rezeptToUpdate.setBeschreibung(rezeptDetails.getBeschreibung());
+            rezeptToUpdate.setZubereitungszeit(rezeptDetails.getZubereitungszeit());
+            rezeptToUpdate.setSchwierigkeitsgrad(rezeptDetails.getSchwierigkeitsgrad());
+            rezeptToUpdate.setBenutzer(rezeptDetails.getBenutzer());
+            rezeptToUpdate.setKategorie(rezeptDetails.getKategorie());
+            rezeptToUpdate.setErnaehrungsinformationen(rezeptDetails.getErnaehrungsinformationen());
+            rezeptToUpdate.setZutaten(rezeptDetails.getZutaten());
+
+            // Speichern des aktualisierten Rezepts in der Datenbank
+            rezeptRepository.save(rezeptToUpdate);
+
+            // Rückgabe des aktualisierten Rezepts
+            return rezeptToUpdate;
+        } else {
+            // Wenn das Rezept nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Rezept mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
+
     // Methode zur Abfrage aller Rezepte in der Datenbank
     public List<Rezept> getAllRezepte() {
         return rezeptRepository.findAll(); // Ruft alle Rezepte ab
