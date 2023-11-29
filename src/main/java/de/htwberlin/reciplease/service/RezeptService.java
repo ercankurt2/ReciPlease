@@ -68,6 +68,27 @@ public class RezeptService {
         }
     }
 
+    // Methode zur Löschung eines Rezepts aus der Datenbank
+    public Rezept deleteRezept(Integer id) {
+        // Ruft das Rezept anhand seiner ID aus der Datenbank ab
+        Rezept rezeptToDelete = rezeptRepository.findById(id).orElse(null);
+
+        if (rezeptToDelete != null) {
+            // Löscht das Rezept aus der Datenbank
+            rezeptRepository.delete(rezeptToDelete);
+
+            // Rückgabe des gelöschten Rezepts
+            return rezeptToDelete;
+        } else {
+            // Wenn das Rezept nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Rezept mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
+
     // Methode zur Abfrage aller Rezepte in der Datenbank
     public List<Rezept> getAllRezepte() {
         return rezeptRepository.findAll(); // Ruft alle Rezepte ab

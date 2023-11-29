@@ -38,11 +38,21 @@ public class RezeptController {
         }
     }
 
-    @PutMapping("/{id}") // HTTP-PUT, um ein Rezept zu aktualisieren
+    @PutMapping("/{id}") // HTTP-PUT, um ein Rezept anhand seiner ID zu aktualisieren
     public ResponseEntity<Rezept> updateRezept(@PathVariable Integer id, @RequestBody Rezept rezept) {
         Rezept updatedRezept = rezeptService.updateRezept(id, rezept);
         if (updatedRezept != null) {
             return ResponseEntity.ok(updatedRezept);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}") // HTTP-DELETE, um ein Rezept anhand seiner ID zu löschen
+    public ResponseEntity<Rezept> deleteRezept(@PathVariable Integer id) {
+        Rezept rezept = rezeptService.deleteRezept(id);
+        if (rezept != null) {
+            return ResponseEntity.ok(rezept);
         } else {
             return ResponseEntity.notFound().build();
         }
