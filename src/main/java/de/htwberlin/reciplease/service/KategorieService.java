@@ -1,6 +1,7 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Kategorie;
+import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.KategorieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,50 @@ public class KategorieService {
         // Gibt die erstellte Kategorie zurück
         return kategorie;
     }
+    // Methode zur Aktualisierung von Kategorie in der Datenbank
+    public Kategorie updateKategorie(Integer id, Kategorie kategorieDetails) {
+        // Ruft die Kategorie anhand ihrer ID aus der Datenbank ab
+        Kategorie kategorieToUpdate = kategorieRepository.findById(id).orElse(null);
 
+        if (kategorieToUpdate != null) {
+            // Aktualisieren der Daten der Kategorie mit den Details aus dem übergebenen Kategorie-Objekt
+            kategorieToUpdate.setName(kategorieDetails.getName());
+
+            // Speichern der aktualisierten Kategorie in der Datenbank
+            kategorieRepository.save(kategorieToUpdate);
+
+            // Rückgabe der aktualisierten Kategorie
+            return kategorieToUpdate;
+        } else {
+            // Wenn die Kategorie nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Kategorie mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
+
+    // Methode zur Löschung einer Kategorie aus der Datenbank
+    public Kategorie deleteKategorie(Integer id) {
+        // Ruft die Kategorie anhand ihrer ID aus der Datenbank ab
+        Kategorie kategorieToDelete = kategorieRepository.findById(id).orElse(null);
+
+        if (kategorieToDelete != null) {
+            // Löscht die Kategorie aus der Datenbank
+            kategorieRepository.delete(kategorieToDelete);
+
+            // Rückgabe der gelöschten Kategorie
+            return kategorieToDelete;
+        } else {
+            // Wenn die Kategorie nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Kategorie mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
     // Methode zur Abfrage aller Kategorien in der Datenbank
     public List<Kategorie> getAllKategorie() {
         return kategorieRepository.findAll(); // Ruft alle Kategorien ab
@@ -46,5 +90,11 @@ public class KategorieService {
     public List<Kategorie> searchByName(String kategoriename) {
         // Ruft eine benutzerdefinierte Suche nach Kategorien anhand des Kategoriennamens ab
         return kategorieRepository.findKategorieByNameContaining(kategoriename);
+    }
+
+    // Methode, um eine Kategorie anhand ihrer ID zu erhalten
+    public Kategorie getKategorieById(Integer id) {
+        // Verwendung von findById, um eine Kategorie zu finden oder null zurückzugeben
+        return kategorieRepository.findById(id).orElse(null);
     }
 }

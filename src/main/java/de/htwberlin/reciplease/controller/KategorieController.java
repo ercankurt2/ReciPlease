@@ -41,7 +41,7 @@ public class KategorieController {
 
     @PutMapping("/{id}") // HTTP-PUT, um eine Kategorie anhand ihrer ID zu aktualisieren
     public ResponseEntity<Kategorie> updateKategorie(@PathVariable Integer id, @RequestBody Kategorie kategorie) {
-        Kategorie updatedKategorie = Kategorie.updateKategorie(id, kategorie);
+        Kategorie updatedKategorie = kategorieService.updateKategorie(id, kategorie);
         if (updatedKategorie != null) {
             return ResponseEntity.ok(updatedKategorie);
         } else {
