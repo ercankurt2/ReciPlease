@@ -98,5 +98,5 @@ public class FavoritenService {
         // Verwendung von findById, um einen Favoriten zu finden oder null zurückzugeben
         return favoritenRepository.findById(id).orElse(null);
     }
-}}
+}
 
