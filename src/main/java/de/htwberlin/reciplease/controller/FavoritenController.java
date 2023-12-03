@@ -41,7 +41,7 @@ public class FavoritenController {
 
     @PutMapping("/{id}") // HTTP-PUT, um einen Favoriten anhand seiner ID zu aktualisieren
     public ResponseEntity<Favoriten> updateFavoriten(@PathVariable Integer id, @RequestBody Favoriten favoriten) {
-        Favoriten updatedFavoriten = FavoritenService.updateFavoriten(id, favoriten);
+        Favoriten updatedFavoriten = favoritenService.updateFavoriten(id, favoriten);
         if (updatedFavoriten != null) {
             return ResponseEntity.ok(updatedFavoriten);
         } else {

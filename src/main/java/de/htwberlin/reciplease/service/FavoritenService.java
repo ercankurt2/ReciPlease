@@ -1,6 +1,7 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Favoriten;
+import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.FavoritenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,51 @@ public class FavoritenService {
         return favoriten;
     }
 
+    // Methode zur Aktualisierung von Favoriten in der Datenbank
+    public Favoriten updateFavoriten(Integer id, Favoriten favoritenDetails) {
+        // Ruft  Favorit anhand seiner ID aus der Datenbank ab
+        Favoriten favoritenToUpdate = favoritenRepository.findById(id).orElse(null);
+
+        if (favoritenToUpdate != null) {
+            // Aktualisieren der Daten von Favorit mit den Details aus dem übergebenen Favoriten-Objekt
+            favoritenToUpdate.setBenutzer(favoritenDetails.getBenutzer());
+            favoritenToUpdate.setRezept(favoritenDetails.getRezept());
+
+            // Speichern der aktualisierten Favoriten in der Datenbank
+            favoritenRepository.save(favoritenToUpdate);
+
+            // Rückgabe der aktualisierten Favoriten
+            return favoritenToUpdate;
+        } else {
+            // Wenn der Favorit nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Favorit mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
+
+    // Methode zur Löschung eines Favoriten aus der Datenbank
+    public Favoriten deleteFavoriten(Integer id) {
+        // Ruft der Favorit anhand seiner ID aus der Datenbank ab
+        Favoriten favoritenToDelete = favoritenRepository.findById(id).orElse(null);
+
+        if (favoritenToDelete != null) {
+            // Löscht der Favorit aus der Datenbank
+            favoritenRepository.delete(favoritenToDelete);
+
+            // Rückgabe des gelöschten Favorits
+            return favoritenToDelete;
+        } else {
+            // Wenn der Favorit nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Favorit mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
     // Methode zur Abfrage aller Favoriten in der Datenbank
     public List<Favoriten> getAllFavoriten() {
         return favoritenRepository.findAll(); // Ruft alle Favoriten ab
@@ -47,4 +93,10 @@ public class FavoritenService {
         // Ruft eine benutzerdefinierte Suche nach Favoriten anhand der ID ab
         return favoritenRepository.findFavoritenByFavoritenID(favoritenID);
     }
-}
+    // Methode, um einen Favoriten anhand seiner ID zu erhalten
+    public Favoriten getFavoritenById(Integer id) {
+        // Verwendung von findById, um einen Favoriten zu finden oder null zurückzugeben
+        return favoritenRepository.findById(id).orElse(null);
+    }
+}}
+
