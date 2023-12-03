@@ -1,6 +1,7 @@
 package de.htwberlin.reciplease.controller;
 
 import de.htwberlin.reciplease.model.Favoriten;
+import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.service.FavoritenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,4 +27,36 @@ public class FavoritenController {
     public ResponseEntity<List<Favoriten>> fetchFavoriten() {
         return ResponseEntity.ok(favoritenService.getAllFavoriten());
     }
+
+    // HTTP-GET, um einen Favoriten anhand seiner ID zu erhalten
+    @GetMapping("/{id}") // Der Pfad enthält eine Variable für die ID
+    public ResponseEntity<Favoriten> getFavoritenById(@PathVariable Integer id) {
+        Favoriten favoriten = favoritenService.getFavoritenById(id);
+        if (favoriten != null) {
+            return ResponseEntity.ok(favoriten);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PutMapping("/{id}") // HTTP-PUT, um einen Favoriten anhand seiner ID zu aktualisieren
+    public ResponseEntity<Favoriten> updateFavoriten(@PathVariable Integer id, @RequestBody Favoriten favoriten) {
+        Favoriten updatedFavoriten = FavoritenService.updateFavoriten(id, favoriten);
+        if (updatedFavoriten != null) {
+            return ResponseEntity.ok(updatedFavoriten);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{id}") // HTTP-DELETE, um einen Favoriten anhand seiner ID zu löschen
+    public ResponseEntity<Favoriten> deleteFavoriten(@PathVariable Integer id) {
+        Favoriten favoriten = favoritenService.deleteFavoriten(id);
+        if (favoriten != null) {
+            return ResponseEntity.ok(favoriten);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
+
