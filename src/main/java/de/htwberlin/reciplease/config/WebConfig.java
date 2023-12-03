@@ -14,7 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("*")
                 .allowedOrigins(
                         "http://localhost:3000",
-                        "https://reciplease1-fe-e3c474f21ef1.herokuapp.com/"
+                        "https://reciplease1-fe-e3c474f21ef1.herokuapp.com"
                 );
     }
 }
