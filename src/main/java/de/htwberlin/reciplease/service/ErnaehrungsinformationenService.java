@@ -1,6 +1,7 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Ernaehrungsinformationen;
+import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.ErnaehrungsinformationenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,6 +36,54 @@ public class ErnaehrungsinformationenService {
 
         // Gibt die erstellte Ernährungsinformation zurück
         return ernaehrungsinformationen;
+    }
+
+    // Methode zur Aktualisierung von Ernährungsinformationen in der Datenbank
+    public Ernaehrungsinformationen updateErnaehrungsinformationen(Integer id, Ernaehrungsinformationen ernaehrungsinformationenDetails) {
+        // Ruft die Ernährungsinformationen anhand seiner ID aus der Datenbank ab
+        Ernaehrungsinformationen ernaehrungsinformationenToUpdate = ernaehrungsinformationenRepository.findById(id).orElse(null);
+
+        if (ernaehrungsinformationenToUpdate != null) {
+            // Aktualisieren der Daten von Ernährungsinformationen mit den Details aus dem übergebenen Ernährungsinformationen-Objekt
+            ernaehrungsinformationenToUpdate.setKalorien(ernaehrungsinformationenDetails.getKalorien());
+            ernaehrungsinformationenToUpdate.setProtein(ernaehrungsinformationenDetails.getProtein());
+            ernaehrungsinformationenToUpdate.setKohlenhydrate(ernaehrungsinformationenDetails.getKohlenhydrate());
+            ernaehrungsinformationenToUpdate.setFett(ernaehrungsinformationenDetails.getFett());
+
+            // Speichern der aktualisierten Ernährungsinformationen in der Datenbank
+            ernaehrungsinformationenRepository.save(ernaehrungsinformationenToUpdate);
+
+            // Rückgabe des aktualisierten Rezepts
+            return ernaehrungsinformationenToUpdate;
+        } else {
+            // Wenn Ernährungsinformationen nicht gefunden werden, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Ernährungsinformationen mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
+    }
+
+    // Methode zur Löschung von Ernährungsinformationen aus der Datenbank
+    public Ernaehrungsinformationen deleteErnaehrungsinformationen(Integer id) {
+        // Ruft Ernährungsinformationen anhand seiner ID aus der Datenbank ab
+        Ernaehrungsinformationen ernaehrungsinformationenToDelete = ernaehrungsinformationenRepository.findById(id).orElse(null);
+
+        if (ernaehrungsinformationenToDelete != null) {
+            // Löscht die Ernährungsinformationen aus der Datenbank
+            ernaehrungsinformationenRepository.delete(ernaehrungsinformationenToDelete);
+
+            // Rückgabe der gelöschten Ernährungsinformationen
+            return ernaehrungsinformationenToDelete;
+        } else {
+            // Wenn die Ernährungsinformationen nicht gefunden werden, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
+            // Option: eine benutzerdefinierte Ausnahme werfen
+            // throw new EntityNotFoundException("Ernährungsinformationen mit ID " + id + " nicht gefunden.");
+
+            // Option: null zurückgeben
+            return null;
+        }
     }
 
     // Methode zur Abfrage aller Ernährungsinformationen in der Datenbank
