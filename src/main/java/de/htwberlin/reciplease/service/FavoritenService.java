@@ -1,7 +1,6 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Favoriten;
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.FavoritenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,7 +39,7 @@ public class FavoritenService {
 
     // Methode zur Aktualisierung von Favoriten in der Datenbank
     public Favoriten updateFavoriten(Integer id, Favoriten favoritenDetails) {
-        // Ruft  Favorit anhand seiner ID aus der Datenbank ab
+        // Ruft Favorit anhand seiner ID aus der Datenbank ab
         Favoriten favoritenToUpdate = favoritenRepository.findById(id).orElse(null);
 
         if (favoritenToUpdate != null) {
@@ -72,7 +71,7 @@ public class FavoritenService {
             // Löscht der Favorit aus der Datenbank
             favoritenRepository.delete(favoritenToDelete);
 
-            // Rückgabe des gelöschten Favorits
+            // Rückgabe des gelöschten Favoriten
             return favoritenToDelete;
         } else {
             // Wenn der Favorit nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
@@ -88,15 +87,9 @@ public class FavoritenService {
         return favoritenRepository.findAll(); // Ruft alle Favoriten ab
     }
 
-    // Methode zur Suche eines Favoriten anhand der ID
-    public List<Favoriten> searchByID(Integer favoritenID) {
-        // Ruft eine benutzerdefinierte Suche nach Favoriten anhand der ID ab
-        return favoritenRepository.findFavoritenByFavoritenID(favoritenID);
-    }
     // Methode, um einen Favoriten anhand seiner ID zu erhalten
     public Favoriten getFavoritenById(Integer id) {
         // Verwendung von findById, um einen Favoriten zu finden oder null zurückzugeben
         return favoritenRepository.findById(id).orElse(null);
     }
 }
-

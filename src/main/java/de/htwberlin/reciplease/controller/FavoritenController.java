@@ -1,7 +1,6 @@
 package de.htwberlin.reciplease.controller;
 
 import de.htwberlin.reciplease.model.Favoriten;
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.service.FavoritenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -59,4 +58,3 @@ public class FavoritenController {
         }
     }
 }
-
