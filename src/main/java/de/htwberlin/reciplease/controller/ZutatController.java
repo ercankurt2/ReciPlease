@@ -1,6 +1,5 @@
 package de.htwberlin.reciplease.controller;
 
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.model.Zutat;
 import de.htwberlin.reciplease.service.ZutatService;
 import lombok.RequiredArgsConstructor;
@@ -27,10 +26,10 @@ public class ZutatController {
     public ResponseEntity<List<Zutat>> fetchZutaten() {
         return ResponseEntity.ok(zutatService.getAllZutat());
     }
-    // HTTP-GET, um eine Zutat anhand seiner ID zu erhalten
 
+    // HTTP-GET, um eine Zutat anhand ihrer ID zu erhalten
     @GetMapping("/{id}") // Der Pfad enthält eine Variable für die ID
-    public ResponseEntity<Zutat> getZutattById(@PathVariable Integer id) {
+    public ResponseEntity<Zutat> getZutatById(@PathVariable Integer id) {
         Zutat zutat = zutatService.getZutatById(id);
         if (zutat != null) {
             return ResponseEntity.ok(zutat);
@@ -59,4 +58,3 @@ public class ZutatController {
         }
     }
 }
-

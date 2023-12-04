@@ -1,6 +1,5 @@
 package de.htwberlin.reciplease.service;
 
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.model.Zutat;
 import de.htwberlin.reciplease.repository.ZutatRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,6 +36,7 @@ public class ZutatService {
         // Gibt die erstellte Zutat zurück
         return zutat;
     }
+
     // Methode zur Aktualisierung von Zutat in der Datenbank
     public Zutat updateZutat(Integer id, Zutat zutatDetails) {
         // Ruft die Zutat anhand ihrer ID aus der Datenbank ab
@@ -83,6 +83,7 @@ public class ZutatService {
             return null;
         }
     }
+
     // Methode zur Abfrage aller Zutaten in der Datenbank
     public List<Zutat> getAllZutat() {
         return zutatRepository.findAll(); // Ruft alle Zutaten ab
