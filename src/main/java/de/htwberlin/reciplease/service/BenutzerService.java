@@ -1,7 +1,6 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Benutzer;
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.BenutzerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,6 +36,7 @@ public class BenutzerService {
         // Gibt den erstellten Benutzer zurück
         return benutzer;
     }
+
     // Methode zur Aktualisierung eines Benutzers in der Datenbank
     public Benutzer updateBenutzer(Integer id, Benutzer benutzerDetails) {
         // Ruft den Benutzer anhand seiner ID aus der Datenbank ab
@@ -47,7 +47,6 @@ public class BenutzerService {
             benutzerToUpdate.setBenutzername(benutzerDetails.getBenutzername());
             benutzerToUpdate.setEmail(benutzerDetails.getEmail());
             benutzerToUpdate.setPasswort(benutzerDetails.getPasswort());
-            //benutzerToUpdate.setRezept(rezeptDetails.getRezept());
 
             // Speichern des aktualisierten Benutzers in der Datenbank
             benutzerRepository.save(benutzerToUpdate);
@@ -84,6 +83,7 @@ public class BenutzerService {
             return null;
         }
     }
+
     // Methode zur Abfrage aller Benutzer in der Datenbank
     public List<Benutzer> getAllBenutzer() {
         return benutzerRepository.findAll(); // Ruft alle Benutzer ab
@@ -94,6 +94,7 @@ public class BenutzerService {
         // Ruft eine benutzerdefinierte Suche nach Benutzern anhand des Benutzernamens ab
         return benutzerRepository.findBenutzerByBenutzernameContaining(benutzername);
     }
+
     // Methode, um einen Benutzer anhand seiner ID zu erhalten
     public Benutzer getBenutzerById(Integer id) {
         // Verwendung von findById, um einen Benutzer zu finden oder null zurückzugeben

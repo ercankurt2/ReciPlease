@@ -94,7 +94,7 @@ public class RezeptService {
         return rezeptRepository.findAll(); // Ruft alle Rezepte ab
     }
 
-    // Methode zur Suche von Rezepten anhand des Namens
+    // Methode zur Suche eines Rezepts anhand des Namens
     public List<Rezept> searchByName(String titel) {
         // Ruft eine benutzerdefinierte Suche nach Rezepten anhand des Titels ab
         return rezeptRepository.findRezepteByTitelContaining(titel);

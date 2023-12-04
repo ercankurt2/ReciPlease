@@ -1,7 +1,6 @@
 package de.htwberlin.reciplease.controller;
 
 import de.htwberlin.reciplease.model.Benutzer;
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.service.BenutzerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +37,7 @@ public class BenutzerController {
             return ResponseEntity.notFound().build();
         }
     }
+
     @PutMapping("/{id}") // HTTP-PUT, um einen Benutzer anhand seiner ID zu aktualisieren
     public ResponseEntity<Benutzer> updateBenutzer(@PathVariable Integer id, @RequestBody Benutzer benutzer) {
         Benutzer updatedBenutzer = benutzerService.updateBenutzer(id, benutzer);
