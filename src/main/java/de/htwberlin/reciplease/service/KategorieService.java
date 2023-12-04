@@ -1,7 +1,6 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Kategorie;
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.KategorieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,8 @@ public class KategorieService {
         // Gibt die erstellte Kategorie zurück
         return kategorie;
     }
-    // Methode zur Aktualisierung von Kategorie in der Datenbank
+
+    // Methode zur Aktualisierung einer Kategorie in der Datenbank
     public Kategorie updateKategorie(Integer id, Kategorie kategorieDetails) {
         // Ruft die Kategorie anhand ihrer ID aus der Datenbank ab
         Kategorie kategorieToUpdate = kategorieRepository.findById(id).orElse(null);
@@ -81,6 +81,7 @@ public class KategorieService {
             return null;
         }
     }
+
     // Methode zur Abfrage aller Kategorien in der Datenbank
     public List<Kategorie> getAllKategorie() {
         return kategorieRepository.findAll(); // Ruft alle Kategorien ab
@@ -88,7 +89,7 @@ public class KategorieService {
 
     // Methode zur Suche einer Kategorie anhand des Namens
     public List<Kategorie> searchByName(String kategoriename) {
-        // Ruft eine benutzerdefinierte Suche nach Kategorien anhand des Kategoriennamens ab
+        // Ruft eine benutzerdefinierte Suche nach Kategorien anhand des Kategorienamens ab
         return kategorieRepository.findKategorieByNameContaining(kategoriename);
     }
 
