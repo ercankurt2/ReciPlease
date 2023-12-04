@@ -1,7 +1,6 @@
 package de.htwberlin.reciplease.service;
 
 import de.htwberlin.reciplease.model.Ernaehrungsinformationen;
-import de.htwberlin.reciplease.model.Rezept;
 import de.htwberlin.reciplease.repository.ErnaehrungsinformationenRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -91,9 +90,11 @@ public class ErnaehrungsinformationenService {
         return ernaehrungsinformationenRepository.findAll(); // Ruft alle Ernährungsinformationen ab
     }
 
+    // Hier KEINE Methode zur Suche einer Ernährungsinformation anhand des Namens, da ein Name nicht existiert
+
     // Methode zur Suche einer Ernährungsinformation anhand der ID
-    public List<Ernaehrungsinformationen> searchByID(Integer ernaehrungsinformationenID) {
+    public Ernaehrungsinformationen getErnaehrungsinformationenById(Integer id) {
         // Ruft eine benutzerdefinierte Suche nach Ernährungsinformationen anhand der ID ab
-        return ernaehrungsinformationenRepository.findErnaehrungsinformationenByErnaehrungsinformationenID(ernaehrungsinformationenID);
+        return ernaehrungsinformationenRepository.findById(id).orElse(null);
     }
 }
