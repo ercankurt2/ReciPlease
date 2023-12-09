@@ -25,6 +25,10 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.postgresql:postgresql:42.7.0'
+
+	// Zur Validierung von Eingaben nutzbar
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'org.postgresql:postgresql'
@@ -36,12 +40,8 @@ dependencies {
 	// Assertj als Bibliothek für die bessere Lesbarkeit bei der Erstellung von Test-Assertions
 	testImplementation("org.assertj:assertj-core:3.24.2")
 
-	// Datenbank-Treiber als Dependency zu build.gradle hinzufügen
-	// runtimeOnly 'com.h2database:h2-mvstore:2.1.214'
-
 	// Datenbank-Treiber aktualisiert
 	runtimeOnly 'com.h2database:h2:2.2.224'
-
 }
 
 tasks.named('test') {
