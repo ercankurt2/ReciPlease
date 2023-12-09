@@ -16,12 +16,6 @@ public class ZutatController {
     // Injektion des ZutatService
     private final ZutatService zutatService;
 
-    @PostMapping // HTTP-POST, um eine neue Zutat zu erstellen
-    public Zutat createZutat(@RequestBody Zutat zutat) {
-        // Ruft die Methode createZutat des ZutatService auf und gibt die erstellte Zutat zurück
-        return zutatService.createZutat(zutat);
-    }
-
     @GetMapping // HTTP-GET, um eine Liste von Zutaten abzurufen
     public ResponseEntity<List<Zutat>> fetchZutaten() {
         return ResponseEntity.ok(zutatService.getAllZutat());
@@ -35,6 +29,17 @@ public class ZutatController {
             return ResponseEntity.ok(zutat);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping // HTTP-POST, um eine neue Zutat zu erstellen
+    public Zutat createZutat(@RequestBody Zutat zutat) {
+        var valid = validate(zutat);
+        if (valid) {
+            // Ruft die Methode createZutat des ZutatService auf und gibt die erstellte Zutat zurück
+            return zutatService.createZutat(zutat);
+        } else {
+            throw new RuntimeException("Validierung fehlgeschlagen. Bitte überprüfe deine Eingaben der Zutat auf Vollständigkeit.");
         }
     }
 
@@ -56,5 +61,12 @@ public class ZutatController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // Methode zur Validierung der Eingaben
+    private boolean validate(Zutat zutat) {
+        return zutat.getName() != null && !zutat.getName().isBlank() &&
+                zutat.getMenge() != null && zutat.getMenge() != 0 &&
+                zutat.getEinheit() != null && !zutat.getEinheit().isBlank();
     }
 }

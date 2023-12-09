@@ -16,12 +16,6 @@ public class FavoritenController {
     // Injektion des FavoritenService
     private final FavoritenService favoritenService;
 
-    @PostMapping // HTTP-POST, um einen neuen Favoriten zu erstellen
-    public Favoriten createFavoriten(@RequestBody Favoriten favoriten) {
-        // Ruft die Methode createFavoriten des FavoritenService auf und gibt den erstellten Favoriten zurück
-        return favoritenService.createFavoriten(favoriten);
-    }
-
     @GetMapping // HTTP-GET, um eine Liste von Favoriten abzurufen
     public ResponseEntity<List<Favoriten>> fetchFavoriten() {
         return ResponseEntity.ok(favoritenService.getAllFavoriten());
@@ -36,6 +30,12 @@ public class FavoritenController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    @PostMapping // HTTP-POST, um einen neuen Favoriten zu erstellen
+    public Favoriten createFavoriten(@RequestBody Favoriten favoriten) {
+        // Ruft die Methode createFavoriten des FavoritenService auf und gibt den erstellten Favoriten zurück
+        return favoritenService.createFavoriten(favoriten);
     }
 
     @PutMapping("/{id}") // HTTP-PUT, um einen Favoriten anhand seiner ID zu aktualisieren

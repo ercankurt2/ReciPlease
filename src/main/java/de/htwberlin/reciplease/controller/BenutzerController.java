@@ -16,12 +16,6 @@ public class BenutzerController {
     // Injektion des BenutzerService
     private final BenutzerService benutzerService;
 
-    @PostMapping // HTTP-POST, um einen neuen Benutzer zu erstellen
-    public Benutzer createBenutzer(@RequestBody Benutzer benutzer) {
-        // Ruft die Methode createBenutzer des BenutzerService auf und gibt den erstellten Benutzer zurück
-        return benutzerService.createBenutzer(benutzer);
-    }
-
     @GetMapping // HTTP-GET, um eine Liste von Benutzern abzurufen
     public ResponseEntity<List<Benutzer>> fetchBenutzer() {
         return ResponseEntity.ok(benutzerService.getAllBenutzer());
@@ -35,6 +29,17 @@ public class BenutzerController {
             return ResponseEntity.ok(benutzer);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping // HTTP-POST, um einen neuen Benutzer zu erstellen
+    public Benutzer createBenutzer(@RequestBody Benutzer benutzer) {
+        var valid = validate(benutzer);
+        if (valid) {
+            // Ruft die Methode createBenutzer des BenutzerService auf und gibt den erstellten Benutzer zurück
+            return benutzerService.createBenutzer(benutzer);
+        } else {
+            throw new RuntimeException("Validierung fehlgeschlagen. Bitte überprüfe deine Eingaben des Benutzers auf Vollständigkeit.");
         }
     }
 
@@ -56,5 +61,12 @@ public class BenutzerController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // Methode zur Validierung der Eingaben
+    private boolean validate(Benutzer benutzer) {
+        return benutzer.getBenutzername() != null && !benutzer.getBenutzername().isEmpty() &&
+                benutzer.getEmail() != null && !benutzer.getEmail().isEmpty() &&
+                benutzer.getPasswort() != null && !benutzer.getPasswort().isEmpty();
     }
 }

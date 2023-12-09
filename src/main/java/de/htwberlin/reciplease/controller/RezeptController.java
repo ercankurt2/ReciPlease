@@ -16,12 +16,6 @@ public class RezeptController {
     // Injektion des RezeptService
     private final RezeptService rezeptService;
 
-    @PostMapping // HTTP-POST, um ein neues Rezept zu erstellen
-    public Rezept createRezept(@RequestBody Rezept rezept) {
-        // Ruft die Methode createRezept des RezeptService auf und gibt das erstellte Rezept zurück
-        return rezeptService.createRezept(rezept);
-    }
-
     @GetMapping // HTTP-GET, um eine Liste von Rezepten abzurufen
     public ResponseEntity<List<Rezept>> fetchRezepte() {
         return ResponseEntity.ok(rezeptService.getAllRezepte());
@@ -35,6 +29,17 @@ public class RezeptController {
             return ResponseEntity.ok(rezept);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping // HTTP-POST, um ein neues Rezept zu erstellen
+    public Rezept createRezept(@RequestBody Rezept rezept) {
+        var valid = validate(rezept);
+        if (valid) {
+            // Ruft die Methode createRezept des RezeptService auf und gibt das erstellte Rezept zurück
+            return rezeptService.createRezept(rezept);
+        } else {
+            throw new RuntimeException("Validierung fehlgeschlagen. Bitte überprüfe deine Eingaben des Rezepts auf Vollständigkeit.");
         }
     }
 
@@ -56,5 +61,13 @@ public class RezeptController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // Methode zur Validierung der Eingaben
+    private boolean validate(Rezept rezept) {
+        return rezept.getTitel() != null && !rezept.getTitel().isBlank() &&
+                rezept.getBeschreibung() != null && !rezept.getBeschreibung().isBlank() &&
+                rezept.getSchwierigkeitsgrad() != null && !rezept.getSchwierigkeitsgrad().isBlank() &&
+                rezept.getZubereitungszeit() != null && !rezept.getZubereitungszeit().isBlank();
     }
 }

@@ -16,12 +16,6 @@ public class KategorieController {
     // Injektion des KategorieService
     private final KategorieService kategorieService;
 
-    @PostMapping // HTTP-POST, um eine neue Kategorie zu erstellen
-    public Kategorie createKategorie(@RequestBody Kategorie kategorie) {
-        // Ruft die Methode createKategorie des KategorieService auf und gibt die erstellte Kategorie zurück
-        return kategorieService.createKategorie(kategorie);
-    }
-
     @GetMapping // HTTP-GET, um eine Liste von Kategorien abzurufen
     public ResponseEntity<List<Kategorie>> fetchKategorien() {
         return ResponseEntity.ok(kategorieService.getAllKategorie());
@@ -35,6 +29,17 @@ public class KategorieController {
             return ResponseEntity.ok(kategorie);
         } else {
             return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping // HTTP-POST, um eine neue Kategorie zu erstellen
+    public Kategorie createKategorie(@RequestBody Kategorie kategorie) {
+        var valid = validate(kategorie);
+        if (valid) {
+            // Ruft die Methode createKategorie des KategorieService auf und gibt die erstellte Kategorie zurück
+            return kategorieService.createKategorie(kategorie);
+        } else {
+            throw new RuntimeException("Validierung fehlgeschlagen. Bitte überprüfe deine Eingaben der Kategorie auf Vollständigkeit.");
         }
     }
 
@@ -56,5 +61,10 @@ public class KategorieController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+
+    // Methode zur Validierung der Eingaben
+    private boolean validate(Kategorie kategorie) {
+        return kategorie.getName() != null && !kategorie.getName().isBlank();
     }
 }
