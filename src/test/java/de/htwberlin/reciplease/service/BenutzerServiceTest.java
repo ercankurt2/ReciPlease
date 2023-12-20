@@ -138,4 +138,25 @@ class BenutzerServiceTest {
         // Überprüft, ob die Liste der Benutzer die erwarteten Benutzer enthält
         assertThat(allBenutzer).containsExactlyInAnyOrder(benutzerErwin, benutzerErika);
     }
+
+    // Testet die Methode getBenutzerById im BenutzerService
+    @Test
+    void shouldGetBenutzerById() {
+        // Erstellt ein Beispiel-Benutzer-Objekt
+        Benutzer existingBenutzer = new Benutzer();
+        existingBenutzer.setBenutzerID(1);
+        existingBenutzer.setBenutzername("Erwin");
+
+        // Konfigurieren des Mock-Objekts, um den existierenden Benutzer zurückzugeben, wenn findById aufgerufen wird
+        when(benutzerRepository.findById(1)).thenReturn(Optional.of(existingBenutzer));
+
+        // Ruft die Methode getBenutzerById im BenutzerService auf und speichert den gefundenen Benutzer
+        Benutzer foundBenutzer = this.benutzerService.getBenutzerById(1);
+
+        // Überprüft, ob der gefundene Benutzer den erwarteten Benutzernamen hat
+        assertThat(foundBenutzer.getBenutzername()).isEqualTo(existingBenutzer.getBenutzername());
+
+        // Überprüft, ob der gefundene Benutzer eine BenutzerID hat
+        assertThat(foundBenutzer.getBenutzerID()).isEqualTo(existingBenutzer.getBenutzerID());
+    }
 }

@@ -138,4 +138,25 @@ class RezeptServiceTest {
         // Überprüft, ob die Liste der Rezepte die erwarteten Rezepte enthält
         assertThat(allRezepte).containsExactlyInAnyOrder(rezeptTomatensuppe, rezeptKuerbissuppe);
     }
+
+    // Testet die Methode getRezeptById im RezeptService
+    @Test
+    void shouldGetRezeptById() {
+        // Erstellt ein Beispiel-Rezept-Objekt
+        Rezept existingRezept = new Rezept();
+        existingRezept.setRezeptID(1);
+        existingRezept.setTitel("Tomatensuppe");
+
+        // Konfigurieren des Mock-Objekts, um das existierende Rezept zurückzugeben, wenn findById aufgerufen wird
+        when(rezeptRepository.findById(1)).thenReturn(Optional.of(existingRezept));
+
+        // Ruft die Methode getRezeptById im RezeptService auf und speichert das gefundene Rezept
+        Rezept foundRezept = this.rezeptService.getRezeptById(1);
+
+        // Überprüft, ob das gefundene Rezept den erwarteten Titel hat
+        assertThat(foundRezept.getTitel()).isEqualTo(existingRezept.getTitel());
+
+        // Überprüft, ob das gefundene Rezept eine RezeptID hat
+        assertThat(foundRezept.getRezeptID()).isEqualTo(existingRezept.getRezeptID());
+    }
 }

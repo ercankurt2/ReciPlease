@@ -138,4 +138,25 @@ class KategorieServiceTest {
         // Überprüft, ob die Liste der Kategorien die erwarteten Kategorien enthält
         assertThat(allKategorie).containsExactlyInAnyOrder(kategorieSuppen, kategorieSalate);
     }
+
+    // Testet die Methode getKategorieById im KategorieService
+    @Test
+    void shouldGetKategorieById() {
+        // Erstellt ein Beispiel-Kategorie-Objekt
+        Kategorie existingKategorie = new Kategorie();
+        existingKategorie.setKategorieID(1);
+        existingKategorie.setName("Suppen");
+
+        // Konfigurieren des Mock-Objekts, um die existierende Kategorie zurückzugeben, wenn findById aufgerufen wird
+        when(kategorieRepository.findById(1)).thenReturn(Optional.of(existingKategorie));
+
+        // Ruft die Methode getKategorieById im KategorieService auf und speichert die gefundene Kategorie
+        Kategorie foundKategorie = this.kategorieService.getKategorieById(1);
+
+        // Überprüft, ob die gefundene Kategorie den erwarteten Namen hat
+        assertThat(foundKategorie.getName()).isEqualTo(existingKategorie.getName());
+
+        // Überprüft, ob die gefundene Kategorie eine KategorieID hat
+        assertThat(foundKategorie.getKategorieID()).isEqualTo(existingKategorie.getKategorieID());
+    }
 }

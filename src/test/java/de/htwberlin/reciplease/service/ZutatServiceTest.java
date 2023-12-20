@@ -151,4 +151,26 @@ class ZutatServiceTest {
         // Überprüft, ob die Liste der Zutaten die erwarteten Zutaten enthält
         assertThat(allZutat).containsExactlyInAnyOrder(zutatTomaten, zutatKartoffeln);
     }
+
+    // Testet die Methode getZutatById im ZutatService
+    @Test
+    void shouldGetZutatById() {
+        // Erstellt ein Beispiel-Zutat-Objekt
+        Zutat existingZutat = new Zutat();
+        existingZutat.setZutatID(1);
+        existingZutat.setName("Tomaten");
+        existingZutat.setMenge(500.0f); // Setzt die Menge als Float
+        existingZutat.setEinheit("Gramm");
+
+        // Konfigurieren des Mock-Objekts, um die existierende Zutat zurückzugeben, wenn findById aufgerufen wird
+        when(zutatRepository.findById(1)).thenReturn(Optional.of(existingZutat));
+
+        // Ruft die Methode getZutatById im ZutatService auf und speichert die gefundene Zutat
+        Zutat foundZutat = this.zutatService.getZutatById(1);
+
+        // Überprüft, ob die gefundene Zutat die erwarteten Daten hat
+        assertThat(foundZutat.getName()).isEqualTo(existingZutat.getName());
+        assertThat(foundZutat.getMenge()).isEqualTo(existingZutat.getMenge());
+        assertThat(foundZutat.getEinheit()).isEqualTo(existingZutat.getEinheit());
+    }
 }

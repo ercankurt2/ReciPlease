@@ -185,4 +185,32 @@ class FavoritenServiceTest {
         // Überprüft, ob die Liste der Favoriten die erwarteten Favoriten enthält
         assertThat(allFavoriten).containsExactlyInAnyOrder(favoriten1, favoriten2);
     }
+
+    // Testet die Methode getFavoritenById im FavoritenService
+    @Test
+    void shouldGetFavoritenById() {
+        // Erstellt ein Beispiel-Benutzer-Objekt
+        Benutzer benutzerErwin = new Benutzer();
+        benutzerErwin.setBenutzername("Erwin");
+
+        // Erstellt ein Beispiel-Rezept-Objekt
+        Rezept rezeptTomatensuppe = new Rezept();
+        rezeptTomatensuppe.setTitel("Tomatensuppe");
+
+        // Erstellt ein Beispiel-Favoriten-Objekt
+        Favoriten existingFavoriten = new Favoriten();
+        existingFavoriten.setFavoritenID(1);
+        existingFavoriten.setBenutzer(benutzerErwin);
+        existingFavoriten.setRezept(rezeptTomatensuppe);
+
+        // Konfigurieren des Mock-Objekts, um den existierenden Favoriten zurückzugeben, wenn findById aufgerufen wird
+        when(favoritenRepository.findById(1)).thenReturn(Optional.of(existingFavoriten));
+
+        // Ruft die Methode getFavoritenById im FavoritenService auf und speichert den gefundenen Favoriten
+        Favoriten foundFavoriten = this.favoritenService.getFavoritenById(1);
+
+        // Überprüft, ob der gefundene Favorit den erwarteten Benutzer und das erwartete Rezept hat
+        assertThat(foundFavoriten.getBenutzer()).isEqualTo(existingFavoriten.getBenutzer());
+        assertThat(foundFavoriten.getRezept()).isEqualTo(existingFavoriten.getRezept());
+    }
 }

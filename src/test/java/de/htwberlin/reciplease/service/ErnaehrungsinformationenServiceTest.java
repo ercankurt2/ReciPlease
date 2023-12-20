@@ -159,4 +159,28 @@ class ErnaehrungsinformationenServiceTest {
         // Überprüft, ob die Liste der Ernaehrungsinformationen die erwarteten Ernaehrungsinformationen enthält
         assertThat(allErnaehrungsinformationen).containsExactlyInAnyOrder(ernaehrungsinformationen1, ernaehrungsinformationen2);
     }
+
+    // Testet die Methode getErnaehrungsinformationenById im ErnaehrungsinformationenService
+    @Test
+    void shouldGetErnaehrungsinformationenById() {
+        // Erstellt ein Beispiel-Ernaehrungsinformationen-Objekt
+        Ernaehrungsinformationen existingErnaehrungsinformationen = new Ernaehrungsinformationen();
+        existingErnaehrungsinformationen.setErnaehrungsinformationenID(1);
+        existingErnaehrungsinformationen.setKalorien(2000);
+        existingErnaehrungsinformationen.setProtein(50);
+        existingErnaehrungsinformationen.setKohlenhydrate(250);
+        existingErnaehrungsinformationen.setFett(70);
+
+        // Konfigurieren des Mock-Objekts, um die existierenden Ernaehrungsinformationen zurückzugeben, wenn findById aufgerufen wird
+        when(ernaehrungsinformationenRepository.findById(1)).thenReturn(Optional.of(existingErnaehrungsinformationen));
+
+        // Ruft die Methode getErnaehrungsinformationenById im ErnaehrungsinformationenService auf und speichert die gefundenen Ernaehrungsinformationen
+        Ernaehrungsinformationen foundErnaehrungsinformationen = this.ernaehrungsinformationenService.getErnaehrungsinformationenById(1);
+
+        // Überprüft, ob die gefundenen Ernaehrungsinformationen die erwarteten Daten haben
+        assertThat(foundErnaehrungsinformationen.getKalorien()).isEqualTo(existingErnaehrungsinformationen.getKalorien());
+        assertThat(foundErnaehrungsinformationen.getProtein()).isEqualTo(existingErnaehrungsinformationen.getProtein());
+        assertThat(foundErnaehrungsinformationen.getKohlenhydrate()).isEqualTo(existingErnaehrungsinformationen.getKohlenhydrate());
+        assertThat(foundErnaehrungsinformationen.getFett()).isEqualTo(existingErnaehrungsinformationen.getFett());
+    }
 }
