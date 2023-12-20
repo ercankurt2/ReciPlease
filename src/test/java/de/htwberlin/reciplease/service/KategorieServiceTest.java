@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
@@ -56,5 +58,37 @@ class KategorieServiceTest {
 
         // Überprüft, ob die erfasste Kategorie eine KategorieID hat
         assertThat(captorValue.getKategorieID()).isNotNull();
+    }
+
+    @Test
+    void shouldUpdateKategorie() {
+        // Erstellt ein Beispiel-Kategorie-Objekt
+        Kategorie existingKategorie = new Kategorie();
+        existingKategorie.setKategorieID(1);
+        existingKategorie.setName("Suppen");
+
+        // Erstellt ein neues Kategorie-Objekt mit den aktualisierten Daten
+        Kategorie newKategorieDetails = new Kategorie();
+        newKategorieDetails.setName("Salate");
+
+        // Konfigurieren des Mock-Objekts, um die existierende Kategorie zurückzugeben, wenn findById aufgerufen wird
+        when(kategorieRepository.findById(1)).thenReturn(Optional.of(existingKategorie));
+
+        // Konfigurieren des Mock-Objekts, um die aktualisierte Kategorie zurückzugeben, wenn save aufgerufen wird
+        when(kategorieRepository.save(any(Kategorie.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Ruft die Methode updateKategorie im KategorieService auf und speichert die aktualisierte Kategorie
+        Kategorie updatedKategorie = this.kategorieService.updateKategorie(1, newKategorieDetails);
+
+        // Überprüft, ob die aktualisierte Kategorie den neuen Namen hat
+        assertThat(updatedKategorie.getName()).isEqualTo(newKategorieDetails.getName());
+
+        // Mithilfe von ArgumentCaptor die übergebene Entität beim Aufruf von kategorieRepository.save(...) erfassen
+        ArgumentCaptor<Kategorie> kategorieArgumentCaptor = ArgumentCaptor.forClass(Kategorie.class);
+        verify(kategorieRepository).save(kategorieArgumentCaptor.capture());
+        Kategorie captorValue = kategorieArgumentCaptor.getValue();
+
+        // Überprüft, ob die erfasste Kategorie den neuen Namen hat
+        assertThat(captorValue.getName()).isEqualTo(newKategorieDetails.getName());
     }
 }

@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
@@ -56,5 +58,49 @@ class ErnaehrungsinformationenServiceTest {
 
         // Überprüft, ob die erfasste Ernaehrungsinformation eine ErnaehrungsinformationenID hat
         assertThat(captorValue.getErnaehrungsinformationenID()).isNotNull();
+    }
+
+    @Test
+    void shouldUpdateErnaehrungsinformationen() {
+        // Erstellt ein Beispiel-Ernaehrungsinformationen-Objekt
+        Ernaehrungsinformationen existingErnaehrungsinformationen = new Ernaehrungsinformationen();
+        existingErnaehrungsinformationen.setErnaehrungsinformationenID(1);
+        existingErnaehrungsinformationen.setKalorien(2000);
+        existingErnaehrungsinformationen.setProtein(50);
+        existingErnaehrungsinformationen.setKohlenhydrate(250);
+        existingErnaehrungsinformationen.setFett(70);
+
+        // Erstellt ein neues Ernaehrungsinformationen-Objekt mit den aktualisierten Daten
+        Ernaehrungsinformationen newErnaehrungsinformationenDetails = new Ernaehrungsinformationen();
+        newErnaehrungsinformationenDetails.setKalorien(1800);
+        newErnaehrungsinformationenDetails.setProtein(60);
+        newErnaehrungsinformationenDetails.setKohlenhydrate(200);
+        newErnaehrungsinformationenDetails.setFett(60);
+
+        // Konfigurieren des Mock-Objekts, um die existierenden Ernaehrungsinformationen zurückzugeben, wenn findById aufgerufen wird
+        when(ernaehrungsinformationenRepository.findById(1)).thenReturn(Optional.of(existingErnaehrungsinformationen));
+
+        // Konfigurieren des Mock-Objekts, um die aktualisierten Ernaehrungsinformationen zurückzugeben, wenn save aufgerufen wird
+        when(ernaehrungsinformationenRepository.save(any(Ernaehrungsinformationen.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Ruft die Methode updateErnaehrungsinformationen im ErnaehrungsinformationenService auf und speichert die aktualisierten Ernaehrungsinformationen
+        Ernaehrungsinformationen updatedErnaehrungsinformationen = this.ernaehrungsinformationenService.updateErnaehrungsinformationen(1, newErnaehrungsinformationenDetails);
+
+        // Überprüft, ob die aktualisierten Ernaehrungsinformationen die neuen Daten haben
+        assertThat(updatedErnaehrungsinformationen.getKalorien()).isEqualTo(newErnaehrungsinformationenDetails.getKalorien());
+        assertThat(updatedErnaehrungsinformationen.getProtein()).isEqualTo(newErnaehrungsinformationenDetails.getProtein());
+        assertThat(updatedErnaehrungsinformationen.getKohlenhydrate()).isEqualTo(newErnaehrungsinformationenDetails.getKohlenhydrate());
+        assertThat(updatedErnaehrungsinformationen.getFett()).isEqualTo(newErnaehrungsinformationenDetails.getFett());
+
+        // Mithilfe von ArgumentCaptor die übergebene Entität beim Aufruf von ernaehrungsinformationenRepository.save(...) erfassen
+        ArgumentCaptor<Ernaehrungsinformationen> ernaehrungsinformationenArgumentCaptor = ArgumentCaptor.forClass(Ernaehrungsinformationen.class);
+        verify(ernaehrungsinformationenRepository).save(ernaehrungsinformationenArgumentCaptor.capture());
+        Ernaehrungsinformationen captorValue = ernaehrungsinformationenArgumentCaptor.getValue();
+
+        // Überprüft, ob die erfassten Ernaehrungsinformationen die neuen Daten haben
+        assertThat(captorValue.getKalorien()).isEqualTo(newErnaehrungsinformationenDetails.getKalorien());
+        assertThat(captorValue.getProtein()).isEqualTo(newErnaehrungsinformationenDetails.getProtein());
+        assertThat(captorValue.getKohlenhydrate()).isEqualTo(newErnaehrungsinformationenDetails.getKohlenhydrate());
+        assertThat(captorValue.getFett()).isEqualTo(newErnaehrungsinformationenDetails.getFett());
     }
 }

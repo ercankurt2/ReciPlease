@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Optional;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.verify;
@@ -56,5 +58,37 @@ class BenutzerServiceTest {
 
         // Überprüft, ob das erfasste Benutzer eine BenutzerID hat
         assertThat(captorValue.getBenutzerID()).isNotNull();
+    }
+
+    @Test
+    void shouldUpdateBenutzer() {
+        // Erstellt ein Beispiel-Benutzer-Objekt
+        Benutzer existingBenutzer = new Benutzer();
+        existingBenutzer.setBenutzerID(1);
+        existingBenutzer.setBenutzername("Erwin");
+
+        // Erstellt ein neues Benutzer-Objekt mit den aktualisierten Daten
+        Benutzer newBenutzerDetails = new Benutzer();
+        newBenutzerDetails.setBenutzername("Erika");
+
+        // Konfigurieren des Mock-Objekts, um den existierenden Benutzer zurückzugeben, wenn findById aufgerufen wird
+        when(benutzerRepository.findById(1)).thenReturn(Optional.of(existingBenutzer));
+
+        // Konfigurieren des Mock-Objekts, um den aktualisierten Benutzer zurückzugeben, wenn save aufgerufen wird
+        when(benutzerRepository.save(any(Benutzer.class))).thenAnswer(invocation -> invocation.getArgument(0));
+
+        // Ruft die Methode updateBenutzer im BenutzerService auf und speichert den aktualisierten Benutzer
+        Benutzer updatedBenutzer = this.benutzerService.updateBenutzer(1, newBenutzerDetails);
+
+        // Überprüft, ob der aktualisierte Benutzer den neuen Benutzernamen hat
+        assertThat(updatedBenutzer.getBenutzername()).isEqualTo(newBenutzerDetails.getBenutzername());
+
+        // Mithilfe von ArgumentCaptor die übergebene Entität beim Aufruf von benutzerRepository.save(...) erfassen
+        ArgumentCaptor<Benutzer> benutzerArgumentCaptor = ArgumentCaptor.forClass(Benutzer.class);
+        verify(benutzerRepository).save(benutzerArgumentCaptor.capture());
+        Benutzer captorValue = benutzerArgumentCaptor.getValue();
+
+        // Überprüft, ob der erfasste Benutzer den neuen Benutzernamen hat
+        assertThat(captorValue.getBenutzername()).isEqualTo(newBenutzerDetails.getBenutzername());
     }
 }
