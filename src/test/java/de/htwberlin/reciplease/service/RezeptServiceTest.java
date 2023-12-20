@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RezeptServiceTest {
 
-    // Erstellt ein Mock-Objekt für das RezeptRepository, um es im Test zu verwende
+    // Erstellt ein Mock-Objekt für das RezeptRepository, um es im Test zu verwenden
     @Mock
     RezeptRepository rezeptRepository;
 
@@ -26,6 +26,7 @@ class RezeptServiceTest {
     @InjectMocks
     RezeptService rezeptService;
 
+    // Testet die Methode createRezept im RezeptService
     @Test
     void shouldCreateRezept() {
         // Erstellt ein Beispiel-Rezept-Objekt
@@ -34,7 +35,7 @@ class RezeptServiceTest {
 
         // Konfigurieren des Mock-Objekts, um ein Rezept mit einer ID zurückzugeben
         when(rezeptRepository.save(any(Rezept.class))).thenAnswer(invocation -> {
-            Rezept savedRezept = invocation.getArgument(0, Rezept.class); // Beachten Sie den Typ
+            Rezept savedRezept = invocation.getArgument(0, Rezept.class);
             savedRezept.setRezeptID(1); // Setzen einer Dummy-ID
             return savedRezept;
         });
