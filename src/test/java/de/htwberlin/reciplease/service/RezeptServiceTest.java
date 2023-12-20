@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -115,5 +117,25 @@ class RezeptServiceTest {
 
         // Überprüft, ob die Methode delete des rezeptRepository aufgerufen wurde
         verify(rezeptRepository).delete(existingRezept);
+    }
+
+    // Testet die Methode getAllRezepte im RezeptService
+    @Test
+    void shouldGetAllRezepte() {
+        // Erstellt zwei Beispiel-Rezept-Objekte
+        Rezept rezeptTomatensuppe = new Rezept();
+        rezeptTomatensuppe.setTitel("Tomatensuppe");
+
+        Rezept rezeptKuerbissuppe = new Rezept();
+        rezeptKuerbissuppe.setTitel("Kürbissuppe");
+
+        // Konfigurieren des Mock-Objekts, um eine Liste mit den beiden Rezepten zurückzugeben, wenn findAll aufgerufen wird
+        when(rezeptRepository.findAll()).thenReturn(Arrays.asList(rezeptTomatensuppe, rezeptKuerbissuppe));
+
+        // Ruft die Methode getAllRezepte im RezeptService auf und speichert die Liste der Rezepte
+        List<Rezept> allRezepte = this.rezeptService.getAllRezepte();
+
+        // Überprüft, ob die Liste der Rezepte die erwarteten Rezepte enthält
+        assertThat(allRezepte).containsExactlyInAnyOrder(rezeptTomatensuppe, rezeptKuerbissuppe);
     }
 }

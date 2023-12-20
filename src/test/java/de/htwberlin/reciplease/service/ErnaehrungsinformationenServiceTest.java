@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -130,5 +132,31 @@ class ErnaehrungsinformationenServiceTest {
 
         // Überprüft, ob die Methode delete des ernaehrungsinformationenRepository aufgerufen wurde
         verify(ernaehrungsinformationenRepository).delete(existingErnaehrungsinformationen);
+    }
+
+    // Testet die Methode getAllErnaehrungsinformationen im ErnaehrungsinformationenService
+    @Test
+    void shouldGetAllErnaehrungsinformationen() {
+        // Erstellt zwei Beispiel-Ernaehrungsinformationen-Objekte
+        Ernaehrungsinformationen ernaehrungsinformationen1 = new Ernaehrungsinformationen();
+        ernaehrungsinformationen1.setKalorien(2000);
+        ernaehrungsinformationen1.setProtein(50);
+        ernaehrungsinformationen1.setKohlenhydrate(250);
+        ernaehrungsinformationen1.setFett(70);
+
+        Ernaehrungsinformationen ernaehrungsinformationen2 = new Ernaehrungsinformationen();
+        ernaehrungsinformationen2.setKalorien(1800);
+        ernaehrungsinformationen2.setProtein(60);
+        ernaehrungsinformationen2.setKohlenhydrate(200);
+        ernaehrungsinformationen2.setFett(60);
+
+        // Konfigurieren des Mock-Objekts, um eine Liste mit den beiden Ernaehrungsinformationen zurückzugeben, wenn findAll aufgerufen wird
+        when(ernaehrungsinformationenRepository.findAll()).thenReturn(Arrays.asList(ernaehrungsinformationen1, ernaehrungsinformationen2));
+
+        // Ruft die Methode getAllErnaehrungsinformationen im ErnaehrungsinformationenService auf und speichert die Liste der Ernaehrungsinformationen
+        List<Ernaehrungsinformationen> allErnaehrungsinformationen = this.ernaehrungsinformationenService.getAllErnaehrungsinformationen();
+
+        // Überprüft, ob die Liste der Ernaehrungsinformationen die erwarteten Ernaehrungsinformationen enthält
+        assertThat(allErnaehrungsinformationen).containsExactlyInAnyOrder(ernaehrungsinformationen1, ernaehrungsinformationen2);
     }
 }

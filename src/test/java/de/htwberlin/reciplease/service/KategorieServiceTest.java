@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -115,5 +117,25 @@ class KategorieServiceTest {
 
         // Überprüft, ob die Methode delete des kategorieRepository aufgerufen wurde
         verify(kategorieRepository).delete(existingKategorie);
+    }
+
+    // Testet die Methode getAllKategorie im KategorieService
+    @Test
+    void shouldGetAllKategorie() {
+        // Erstellt zwei Beispiel-Kategorie-Objekte
+        Kategorie kategorieSuppen = new Kategorie();
+        kategorieSuppen.setName("Suppen");
+
+        Kategorie kategorieSalate = new Kategorie();
+        kategorieSalate.setName("Salate");
+
+        // Konfigurieren des Mock-Objekts, um eine Liste mit den beiden Kategorien zurückzugeben, wenn findAll aufgerufen wird
+        when(kategorieRepository.findAll()).thenReturn(Arrays.asList(kategorieSuppen, kategorieSalate));
+
+        // Ruft die Methode getAllKategorie im KategorieService auf und speichert die Liste der Kategorien
+        List<Kategorie> allKategorie = this.kategorieService.getAllKategorie();
+
+        // Überprüft, ob die Liste der Kategorien die erwarteten Kategorien enthält
+        assertThat(allKategorie).containsExactlyInAnyOrder(kategorieSuppen, kategorieSalate);
     }
 }

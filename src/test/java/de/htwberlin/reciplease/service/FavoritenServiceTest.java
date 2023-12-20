@@ -11,6 +11,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -144,5 +146,43 @@ class FavoritenServiceTest {
 
         // Überprüft, ob die Methode delete des favoritenRepository aufgerufen wurde
         verify(favoritenRepository).delete(existingFavoriten);
+    }
+
+    // Testet die Methode getAllFavoriten im FavoritenService
+    @Test
+    void shouldGetAllFavoriten() {
+        // Erstellt zwei Beispiel-Benutzer-Objekte
+        Benutzer benutzerErwin = new Benutzer();
+        benutzerErwin.setBenutzername("Erwin");
+
+        Benutzer benutzerErika = new Benutzer();
+        benutzerErika.setBenutzername("Erika");
+
+        // Erstellt zwei Beispiel-Rezept-Objekte
+        Rezept rezeptTomatensuppe = new Rezept();
+        rezeptTomatensuppe.setTitel("Tomatensuppe");
+
+        Rezept rezeptKuerbissuppe = new Rezept();
+        rezeptKuerbissuppe.setTitel("Kürbissuppe");
+
+        // Erstellt zwei Beispiel-Favoriten-Objekte
+        Favoriten favoriten1 = new Favoriten();
+        favoriten1.setFavoritenID(1);
+        favoriten1.setBenutzer(benutzerErwin);
+        favoriten1.setRezept(rezeptTomatensuppe);
+
+        Favoriten favoriten2 = new Favoriten();
+        favoriten2.setFavoritenID(2);
+        favoriten2.setBenutzer(benutzerErika);
+        favoriten2.setRezept(rezeptKuerbissuppe);
+
+        // Konfigurieren des Mock-Objekts, um eine Liste mit den beiden Favoriten zurückzugeben, wenn findAll aufgerufen wird
+        when(favoritenRepository.findAll()).thenReturn(Arrays.asList(favoriten1, favoriten2));
+
+        // Ruft die Methode getAllFavoriten im FavoritenService auf und speichert die Liste der Favoriten
+        List<Favoriten> allFavoriten = this.favoritenService.getAllFavoriten();
+
+        // Überprüft, ob die Liste der Favoriten die erwarteten Favoriten enthält
+        assertThat(allFavoriten).containsExactlyInAnyOrder(favoriten1, favoriten2);
     }
 }

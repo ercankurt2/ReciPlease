@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -115,5 +117,25 @@ class BenutzerServiceTest {
 
         // Überprüft, ob die Methode delete des benutzerRepository aufgerufen wurde
         verify(benutzerRepository).delete(existingBenutzer);
+    }
+
+    // Testet die Methode getAllBenutzer im BenutzerService
+    @Test
+    void shouldGetAllBenutzer() {
+        // Erstellt zwei Beispiel-Benutzer-Objekte
+        Benutzer benutzerErwin = new Benutzer();
+        benutzerErwin.setBenutzername("Erwin");
+
+        Benutzer benutzerErika = new Benutzer();
+        benutzerErika.setBenutzername("Erika");
+
+        // Konfigurieren des Mock-Objekts, um eine Liste mit den beiden Benutzern zurückzugeben, wenn findAll aufgerufen wird
+        when(benutzerRepository.findAll()).thenReturn(Arrays.asList(benutzerErwin, benutzerErika));
+
+        // Ruft die Methode getAllBenutzer im BenutzerService auf und speichert die Liste der Benutzer
+        List<Benutzer> allBenutzer = this.benutzerService.getAllBenutzer();
+
+        // Überprüft, ob die Liste der Benutzer die erwarteten Benutzer enthält
+        assertThat(allBenutzer).containsExactlyInAnyOrder(benutzerErwin, benutzerErika);
     }
 }

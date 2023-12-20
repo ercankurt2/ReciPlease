@@ -9,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -124,5 +126,29 @@ class ZutatServiceTest {
 
         // Überprüft, ob die Methode delete des zutatRepository aufgerufen wurde
         verify(zutatRepository).delete(existingZutat);
+    }
+
+    // Testet die Methode getAllZutat im ZutatService
+    @Test
+    void shouldGetAllZutat() {
+        // Erstellt zwei Beispiel-Zutat-Objekte
+        Zutat zutatTomaten = new Zutat();
+        zutatTomaten.setName("Tomaten");
+        zutatTomaten.setMenge(500.0f); // Setzt die Menge als Float
+        zutatTomaten.setEinheit("Gramm");
+
+        Zutat zutatKartoffeln = new Zutat();
+        zutatKartoffeln.setName("Kartoffeln");
+        zutatKartoffeln.setMenge(1000.0f); // Setzt die Menge als Float
+        zutatKartoffeln.setEinheit("Gramm");
+
+        // Konfigurieren des Mock-Objekts, um eine Liste mit den beiden Zutaten zurückzugeben, wenn findAll aufgerufen wird
+        when(zutatRepository.findAll()).thenReturn(Arrays.asList(zutatTomaten, zutatKartoffeln));
+
+        // Ruft die Methode getAllZutat im ZutatService auf und speichert die Liste der Zutaten
+        List<Zutat> allZutat = this.zutatService.getAllZutat();
+
+        // Überprüft, ob die Liste der Zutaten die erwarteten Zutaten enthält
+        assertThat(allZutat).containsExactlyInAnyOrder(zutatTomaten, zutatKartoffeln);
     }
 }
