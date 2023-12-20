@@ -56,7 +56,7 @@ public class BenutzerService {
         } else {
             // Wenn der Benutzer nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
             // Option: eine benutzerdefinierte Ausnahme werfen
-            // throw new EntityNotFoundException("Rezept mit ID " + id + " nicht gefunden.");
+            // throw new EntityNotFoundException("Benutzer mit ID " + id + " nicht gefunden.");
 
             // Option: null zurückgeben
             return null;

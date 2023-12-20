@@ -72,7 +72,7 @@ public class ZutatService {
             // Löscht die Zutat aus der Datenbank
             zutatRepository.delete(zutatToDelete);
 
-            // Rückgabe des gelöschten Rezepts
+            // Rückgabe der gelöschten Zutat
             return zutatToDelete;
         } else {
             // Wenn die Zutat nicht gefunden wird, wird eine geeignete Ausnahme geworfen oder null zurückgegeben

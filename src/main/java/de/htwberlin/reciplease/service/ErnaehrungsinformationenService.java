@@ -52,7 +52,7 @@ public class ErnaehrungsinformationenService {
             // Speichern der aktualisierten Ernährungsinformationen in der Datenbank
             ernaehrungsinformationenRepository.save(ernaehrungsinformationenToUpdate);
 
-            // Rückgabe des aktualisierten Rezepts
+            // Rückgabe der aktualisierten Ernährungsinformationen
             return ernaehrungsinformationenToUpdate;
         } else {
             // Wenn Ernährungsinformationen nicht gefunden werden, wird eine geeignete Ausnahme geworfen oder null zurückgegeben
