@@ -62,6 +62,7 @@ class FavoritenServiceTest {
         assertThat(captorValue.getFavoritenID()).isNotNull();
     }
 
+    // Testet die Methode updateFavoriten im FavoritenService
     @Test
     void shouldUpdateFavoriten() {
         // Erstellt ein Beispiel-Benutzer-Objekt
@@ -112,5 +113,36 @@ class FavoritenServiceTest {
         // Überprüft, ob der erfasste Favorit den neuen Benutzer und das neue Rezept hat
         assertThat(captorValue.getBenutzer()).isEqualTo(newFavoritenDetails.getBenutzer());
         assertThat(captorValue.getRezept()).isEqualTo(newFavoritenDetails.getRezept());
+    }
+
+    // Testet die Methode deleteFavoriten im FavoritenService
+    @Test
+    void shouldDeleteFavoriten() {
+        // Erstellt ein Beispiel-Benutzer-Objekt
+        Benutzer benutzerErwin = new Benutzer();
+        benutzerErwin.setBenutzername("Erwin");
+
+        // Erstellt ein Beispiel-Rezept-Objekt
+        Rezept rezeptTomatensuppe = new Rezept();
+        rezeptTomatensuppe.setTitel("Tomatensuppe");
+
+        // Erstellt ein Beispiel-Favoriten-Objekt
+        Favoriten existingFavoriten = new Favoriten();
+        existingFavoriten.setFavoritenID(1);
+        existingFavoriten.setBenutzer(benutzerErwin);
+        existingFavoriten.setRezept(rezeptTomatensuppe);
+
+        // Konfigurieren des Mock-Objekts, um den existierenden Favoriten zurückzugeben, wenn findById aufgerufen wird
+        when(favoritenRepository.findById(1)).thenReturn(Optional.of(existingFavoriten));
+
+        // Ruft die Methode deleteFavoriten im FavoritenService auf und speichert den gelöschten Favoriten
+        Favoriten deletedFavoriten = this.favoritenService.deleteFavoriten(1);
+
+        // Überprüft, ob der gelöschte Favorit den erwarteten Benutzer und das erwartete Rezept hat
+        assertThat(deletedFavoriten.getBenutzer()).isEqualTo(existingFavoriten.getBenutzer());
+        assertThat(deletedFavoriten.getRezept()).isEqualTo(existingFavoriten.getRezept());
+
+        // Überprüft, ob die Methode delete des favoritenRepository aufgerufen wurde
+        verify(favoritenRepository).delete(existingFavoriten);
     }
 }

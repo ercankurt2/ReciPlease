@@ -60,6 +60,7 @@ class KategorieServiceTest {
         assertThat(captorValue.getKategorieID()).isNotNull();
     }
 
+    // Testet die Methode updateKategorie im KategorieService
     @Test
     void shouldUpdateKategorie() {
         // Erstellt ein Beispiel-Kategorie-Objekt
@@ -90,5 +91,29 @@ class KategorieServiceTest {
 
         // Überprüft, ob die erfasste Kategorie den neuen Namen hat
         assertThat(captorValue.getName()).isEqualTo(newKategorieDetails.getName());
+    }
+
+    // Testet die Methode deleteKategorie im KategorieService
+    @Test
+    void shouldDeleteKategorie() {
+        // Erstellt ein Beispiel-Kategorie-Objekt
+        Kategorie existingKategorie = new Kategorie();
+        existingKategorie.setKategorieID(1);
+        existingKategorie.setName("Suppen");
+
+        // Konfigurieren des Mock-Objekts, um die existierende Kategorie zurückzugeben, wenn findById aufgerufen wird
+        when(kategorieRepository.findById(1)).thenReturn(Optional.of(existingKategorie));
+
+        // Ruft die Methode deleteKategorie im KategorieService auf und speichert die gelöschte Kategorie
+        Kategorie deletedKategorie = this.kategorieService.deleteKategorie(1);
+
+        // Überprüft, ob die gelöschte Kategorie den erwarteten Namen hat
+        assertThat(deletedKategorie.getName()).isEqualTo(existingKategorie.getName());
+
+        // Überprüft, ob die gelöschte Kategorie eine KategorieID hat
+        assertThat(deletedKategorie.getKategorieID()).isEqualTo(existingKategorie.getKategorieID());
+
+        // Überprüft, ob die Methode delete des kategorieRepository aufgerufen wurde
+        verify(kategorieRepository).delete(existingKategorie);
     }
 }

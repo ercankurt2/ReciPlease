@@ -60,6 +60,7 @@ class BenutzerServiceTest {
         assertThat(captorValue.getBenutzerID()).isNotNull();
     }
 
+    // Testet die Methode updateBenutzer im BenutzerService
     @Test
     void shouldUpdateBenutzer() {
         // Erstellt ein Beispiel-Benutzer-Objekt
@@ -90,5 +91,29 @@ class BenutzerServiceTest {
 
         // Überprüft, ob der erfasste Benutzer den neuen Benutzernamen hat
         assertThat(captorValue.getBenutzername()).isEqualTo(newBenutzerDetails.getBenutzername());
+    }
+
+    // Testet die Methode deleteBenutzer im BenutzerService
+    @Test
+    void shouldDeleteBenutzer() {
+        // Erstellt ein Beispiel-Benutzer-Objekt
+        Benutzer existingBenutzer = new Benutzer();
+        existingBenutzer.setBenutzerID(1);
+        existingBenutzer.setBenutzername("Erwin");
+
+        // Konfigurieren des Mock-Objekts, um den existierenden Benutzer zurückzugeben, wenn findById aufgerufen wird
+        when(benutzerRepository.findById(1)).thenReturn(Optional.of(existingBenutzer));
+
+        // Ruft die Methode deleteBenutzer im BenutzerService auf und speichert den gelöschten Benutzer
+        Benutzer deletedBenutzer = this.benutzerService.deleteBenutzer(1);
+
+        // Überprüft, ob der gelöschte Benutzer den erwarteten Benutzernamen hat
+        assertThat(deletedBenutzer.getBenutzername()).isEqualTo(existingBenutzer.getBenutzername());
+
+        // Überprüft, ob der gelöschte Benutzer eine BenutzerID hat
+        assertThat(deletedBenutzer.getBenutzerID()).isEqualTo(existingBenutzer.getBenutzerID());
+
+        // Überprüft, ob die Methode delete des benutzerRepository aufgerufen wurde
+        verify(benutzerRepository).delete(existingBenutzer);
     }
 }

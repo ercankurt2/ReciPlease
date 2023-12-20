@@ -60,6 +60,7 @@ class ErnaehrungsinformationenServiceTest {
         assertThat(captorValue.getErnaehrungsinformationenID()).isNotNull();
     }
 
+    // Testet die Methode updateErnaehrungsinformationen im ErnaehrungsinformationenService
     @Test
     void shouldUpdateErnaehrungsinformationen() {
         // Erstellt ein Beispiel-Ernaehrungsinformationen-Objekt
@@ -102,5 +103,32 @@ class ErnaehrungsinformationenServiceTest {
         assertThat(captorValue.getProtein()).isEqualTo(newErnaehrungsinformationenDetails.getProtein());
         assertThat(captorValue.getKohlenhydrate()).isEqualTo(newErnaehrungsinformationenDetails.getKohlenhydrate());
         assertThat(captorValue.getFett()).isEqualTo(newErnaehrungsinformationenDetails.getFett());
+    }
+
+    // Testet die Methode deleteErnaehrungsinformationen im ErnaehrungsinformationenService
+    @Test
+    void shouldDeleteErnaehrungsinformationen() {
+        // Erstellt ein Beispiel-Ernaehrungsinformationen-Objekt
+        Ernaehrungsinformationen existingErnaehrungsinformationen = new Ernaehrungsinformationen();
+        existingErnaehrungsinformationen.setErnaehrungsinformationenID(1);
+        existingErnaehrungsinformationen.setKalorien(2000);
+        existingErnaehrungsinformationen.setProtein(50);
+        existingErnaehrungsinformationen.setKohlenhydrate(250);
+        existingErnaehrungsinformationen.setFett(70);
+
+        // Konfigurieren des Mock-Objekts, um die existierenden Ernaehrungsinformationen zurückzugeben, wenn findById aufgerufen wird
+        when(ernaehrungsinformationenRepository.findById(1)).thenReturn(Optional.of(existingErnaehrungsinformationen));
+
+        // Ruft die Methode deleteErnaehrungsinformationen im ErnaehrungsinformationenService auf und speichert die gelöschten Ernaehrungsinformationen
+        Ernaehrungsinformationen deletedErnaehrungsinformationen = this.ernaehrungsinformationenService.deleteErnaehrungsinformationen(1);
+
+        // Überprüft, ob die gelöschten Ernaehrungsinformationen die erwarteten Daten haben
+        assertThat(deletedErnaehrungsinformationen.getKalorien()).isEqualTo(existingErnaehrungsinformationen.getKalorien());
+        assertThat(deletedErnaehrungsinformationen.getProtein()).isEqualTo(existingErnaehrungsinformationen.getProtein());
+        assertThat(deletedErnaehrungsinformationen.getKohlenhydrate()).isEqualTo(existingErnaehrungsinformationen.getKohlenhydrate());
+        assertThat(deletedErnaehrungsinformationen.getFett()).isEqualTo(existingErnaehrungsinformationen.getFett());
+
+        // Überprüft, ob die Methode delete des ernaehrungsinformationenRepository aufgerufen wurde
+        verify(ernaehrungsinformationenRepository).delete(existingErnaehrungsinformationen);
     }
 }

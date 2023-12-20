@@ -60,6 +60,7 @@ class RezeptServiceTest {
         assertThat(captorValue.getRezeptID()).isNotNull();
     }
 
+    // Testet die Methode updateRezept im RezeptService
     @Test
     void shouldUpdateRezept() {
         // Erstellt ein Beispiel-Rezept-Objekt
@@ -90,5 +91,29 @@ class RezeptServiceTest {
 
         // Überprüft, ob das erfasste Rezept den neuen Titel hat
         assertThat(captorValue.getTitel()).isEqualTo(newRezeptDetails.getTitel());
+    }
+
+    // Testet die Methode deleteRezept im RezeptService
+    @Test
+    void shouldDeleteRezept() {
+        // Erstellt ein Beispiel-Rezept-Objekt
+        Rezept existingRezept = new Rezept();
+        existingRezept.setRezeptID(1);
+        existingRezept.setTitel("Tomatensuppe");
+
+        // Konfigurieren des Mock-Objekts, um das existierende Rezept zurückzugeben, wenn findById aufgerufen wird
+        when(rezeptRepository.findById(1)).thenReturn(Optional.of(existingRezept));
+
+        // Ruft die Methode deleteRezept im RezeptService auf und speichert das gelöschte Rezept
+        Rezept deletedRezept = this.rezeptService.deleteRezept(1);
+
+        // Überprüft, ob das gelöschte Rezept den erwarteten Titel hat
+        assertThat(deletedRezept.getTitel()).isEqualTo(existingRezept.getTitel());
+
+        // Überprüft, ob das gelöschte Rezept eine RezeptID hat
+        assertThat(deletedRezept.getRezeptID()).isEqualTo(existingRezept.getRezeptID());
+
+        // Überprüft, ob die Methode delete des rezeptRepository aufgerufen wurde
+        verify(rezeptRepository).delete(existingRezept);
     }
 }

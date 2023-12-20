@@ -60,6 +60,7 @@ class ZutatServiceTest {
         assertThat(captorValue.getZutatID()).isNotNull();
     }
 
+    // Testet die Methode updateZutat im ZutatService
     @Test
     void shouldUpdateZutat() {
         // Erstellt ein Beispiel-Zutat-Objekt
@@ -98,5 +99,30 @@ class ZutatServiceTest {
         assertThat(captorValue.getName()).isEqualTo(newZutatDetails.getName());
         assertThat(captorValue.getMenge()).isEqualTo(newZutatDetails.getMenge());
         assertThat(captorValue.getEinheit()).isEqualTo(newZutatDetails.getEinheit());
+    }
+
+    // Testet die Methode deleteZutat im ZutatService
+    @Test
+    void shouldDeleteZutat() {
+        // Erstellt ein Beispiel-Zutat-Objekt
+        Zutat existingZutat = new Zutat();
+        existingZutat.setZutatID(1);
+        existingZutat.setName("Tomaten");
+        existingZutat.setMenge(500.0f); // Setzt die Menge als Float
+        existingZutat.setEinheit("Gramm");
+
+        // Konfigurieren des Mock-Objekts, um die existierende Zutat zurückzugeben, wenn findById aufgerufen wird
+        when(zutatRepository.findById(1)).thenReturn(Optional.of(existingZutat));
+
+        // Ruft die Methode deleteZutat im ZutatService auf und speichert die gelöschte Zutat
+        Zutat deletedZutat = this.zutatService.deleteZutat(1);
+
+        // Überprüft, ob die gelöschte Zutat die erwarteten Daten hat
+        assertThat(deletedZutat.getName()).isEqualTo(existingZutat.getName());
+        assertThat(deletedZutat.getMenge()).isEqualTo(existingZutat.getMenge());
+        assertThat(deletedZutat.getEinheit()).isEqualTo(existingZutat.getEinheit());
+
+        // Überprüft, ob die Methode delete des zutatRepository aufgerufen wurde
+        verify(zutatRepository).delete(existingZutat);
     }
 }
