@@ -1,26 +1,25 @@
 # ReciPlease
-WebTech Projekt ReciPlease
+Das Projekt wurde auf Heroku deployed und ist unter den nachfolgenden Links zugänglich:
 
-GRUPPENMITGLIEDER
+Backend: https://reciplease1-f8141cc52992.herokuapp.com/
+
+Frontend (die eigentliche Anwendung): https://reciplease1-fe-e3c474f21ef1.herokuapp.com/
+
+# GRUPPENMITGLIEDER
 M. Kazancioglu
+
 E. Kurt
 
-KURZFASSUNG
+# KURZFASSUNG
 In unserem Projekt geht es um eine Verwaltung für Kochrezepte. Kernfunktionalitäten sind das Erstellen, Bearbeiten und Löschen von Kochrezepten.
-Rezepte haben zudem eine Kategorie. Auch soll es möglich sein, dass Rezepte favorisiert werden können. Ernährungsinformationen und ein Dark Mode sollen auch implementiert werden.
-Extrafunktionalitäten, die auch implementiert werden können, sind eine Rezeptsuche, eine Benutzerregistrierung und -anmeldung mit dazugehörigen Benutzerprofilen und eine Einkaufslistenfunktion.
 
-Kernfunktionalitäten:
-Rezept erstellen: Benutzer können Rezepte erstellen, wobei sie Zutaten, Zubereitungsschritte (Beschreibung), Zubereitungszeit (Beschreibung) und Schwierigkeitsgrad (Beschreibung) hinzufügen können.
-Rezept bearbeiten: Benutzer können Rezepte bearbeiten.
-Rezept löschen: Benutzer können Rezepte löschen.
-Kategorien: Erlaubt Benutzern, ihre Rezepte zu bestimmten vordefinierten Kategorien zuzuordnen, um sie leichter wiederzufinden.
-Favoriten: Benutzer können Rezepte als Favoriten markieren, um sie später leicht wiederzufinden.
-Ernährungsinformationen (eventuell Extrabereich unter Beschreibung): Zeige Nährwertinformationen für Rezepte an, um Benutzern bei der Auswahl von Mahlzeiten entsprechend ihren Ernährungszielen zu helfen.
-Dark Mode: Ein Dark Mode, um die Benutzererfahrung anzupassen.
+# Kernfunktionalitäten:
+Rezept erstellen: Benutzer können Rezepte erstellen, wobei sie Titel, Beschreibung (ggf. mit Zubereitungsschritten), Zutaten, Schwierigkeitsgrad und Zubereitungszeit hinzufügen können.
+Rezept bearbeiten: Benutzer können erstellte Rezepte bearbeiten.
+Rezept löschen: Benutzer können erstellte Rezepte löschen.
 
-Extras:
-Rezeptsuche: Implementiere eine Suchfunktion, die es Benutzern ermöglicht, Rezepte nach Stichwörtern oder Kategorien zu finden.
-Benutzerregistrierung und -anmeldung: Benutzer können sich registrieren und anmelden, um ihre persönliche Sammlung von Rezepten zu erstellen und zu verwalten.
-Benutzerprofile: Jeder Benutzer hat ein persönliches Profil, auf dem sie Informationen über ihre Rezepte, Bewertungen und Aktivitäten anzeigen können.
-Einkaufslisten: Implementiere eine Einkaufslistenfunktion, mit der Benutzer die Zutaten eines Rezepts in eine Einkaufsliste übertragen können.
+# Einige Informationen zum Backend
+- Aufteilung in Model, Service, Controller und Repository
+- Umfangreiche Testabdeckung (30 Tests)
+- Nutzung einer auf Heroku vorhandenen Datenbank
+- Verschlüsselung der Database Credentials mit Hilfe der application.yml
